@@ -29,6 +29,8 @@ describe('billetterie de démonstration — parcours complet', () => {
     expect(reservation.pricing.serviceFeesMinor).toBe(140);
     expect(reservation.pricing.totalMinor).toBe(7440);
     expect(reservation.pricing.isSimulation).toBe(true);
+    // La ventilation interne des revenus Tamurt n'est jamais exposée à l'acheteur.
+    expect('tamurtRevenue' in reservation.pricing).toBe(false);
 
     const order = await checkout.createOrder(ctx, buyer.auth, reservation.id, key());
     expect(order.orderNumber).toMatch(/^TD-\d{6}-[A-F0-9]{8}$/);

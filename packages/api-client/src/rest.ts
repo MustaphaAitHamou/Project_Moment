@@ -34,7 +34,8 @@ export interface ReservationResponse {
   environment: 'demo' | 'live';
   offer: { id: string; name: string };
   event: { id: string; slug: string; title: string; startsAt: string; timezone: string };
-  pricing: PricingBreakdown;
+  /** Répartition visible par l'acheteur (sans la ventilation interne des revenus Tamurt). */
+  pricing: Omit<PricingBreakdown, 'tamurtRevenue' | 'warnings'>;
 }
 
 export interface OrderResponse {

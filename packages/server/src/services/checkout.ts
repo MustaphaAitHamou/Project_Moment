@@ -28,6 +28,18 @@ import { enforceRateLimit, withIdempotency } from '../reliability';
  * blocage, remboursement) en cas d'échec, séparation stricte démonstration / réel.
  */
 
+/**
+ * Tarification visible par l'acheteur : la répartition interne des revenus Tamurt (commission,
+ * partage de frais, marge) et les avertissements de simulation restent côté serveur.
+ */
+export type BuyerPricing = Omit<PricingBreakdown, 'tamurtRevenue' | 'warnings'>;
+
+export function toBuyerPricing(pricing: PricingBreakdown): BuyerPricing {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { tamurtRevenue, warnings, ...buyer } = pricing;
+  return buyer;
+}
+
 export interface ReservationView {
   id: string;
   status: string;
@@ -36,7 +48,7 @@ export interface ReservationView {
   environment: 'demo' | 'live';
   offer: { id: string; name: string };
   event: { id: string; slug: string; title: string; startsAt: string; timezone: string };
-  pricing: PricingBreakdown;
+  pricing: BuyerPricing;
 }
 
 export interface OrderView {
@@ -182,7 +194,7 @@ async function reserve(ctx: ServerContext, user: AuthUser, input: CreateReservat
     environment,
     offer: { id: offer.id, name: offer.name },
     event: { id: event.id, slug: event.slug, title: event.title, startsAt: event.starts_at, timezone: event.timezone },
-    pricing,
+    pricing: toBuyerPricing(pricing),
   };
 }
 
@@ -205,7 +217,7 @@ export async function getReservation(ctx: ServerContext, user: AuthUser, reserva
     environment: row.environment,
     offer: { id: row.offer.id, name: row.offer.name },
     event: { id: row.event.id, slug: row.event.slug, title: row.event.title, startsAt: row.event.starts_at, timezone: row.event.timezone },
-    pricing: snapshotToBreakdown(snapshot),
+    pricing: toBuyerPricing(snapshotToBreakdown(snapshot)),
   };
 }
 

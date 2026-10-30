@@ -744,7 +744,8 @@
     "liveDisabled": "Live sales aren't enabled: they require an agreement with a ticketing partner and legal approval.",
     "loginToBuy": "Log in to book.",
     "betaToBuy": "Demo ticketing is reserved for beta testers.",
-    "orderSummaryFor": "For {event}"
+    "orderSummaryFor": "For {event}",
+    "payNow": "Pay {amount} (simulation)"
   },
   "resale": {
     "title": "Ticket resale",

@@ -744,7 +744,8 @@
     "liveDisabled": "La vente réelle n'est pas activée : elle nécessite un accord avec un partenaire de billetterie et une validation juridique.",
     "loginToBuy": "Connectez-vous pour réserver.",
     "betaToBuy": "La billetterie de démonstration est réservée aux bêta-testeurs.",
-    "orderSummaryFor": "Pour {event}"
+    "orderSummaryFor": "Pour {event}",
+    "payNow": "Payer {amount} (simulation)"
   },
   "resale": {
     "title": "Revente de billets",

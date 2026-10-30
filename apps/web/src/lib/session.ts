@@ -65,3 +65,21 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
     hasAppAccess: hasAppAccess({ authenticated: true, suspended, roles, betaMode }),
   };
 });
+
+/**
+ * Utilisateur au format des services serveur (@tamurt/server), avec jeton d'accès vérifié.
+ * À utiliser dans les pages qui appellent directement un service (paiement, revente…).
+ */
+export const getAuthUser = cache(async () => {
+  const { authenticate } = await import('@tamurt/server');
+  const { getServerContext } = await import('./server-context');
+  const supabase = await getSupabase();
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) return null;
+  try {
+    return await authenticate(getServerContext(), token);
+  } catch {
+    return null;
+  }
+});
