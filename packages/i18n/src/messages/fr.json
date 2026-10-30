@@ -895,7 +895,9 @@
     "clearCache": "Vider le cache",
     "cacheCleared": "Cache vidé.",
     "version": "Version {version}",
-    "about": "À propos"
+    "about": "À propos",
+    "restartForDirection": "Fermez puis rouvrez l’application pour appliquer le sens de lecture de cette langue.",
+    "theme": "Thème"
   },
   "support": {
     "title": "Aide et support",

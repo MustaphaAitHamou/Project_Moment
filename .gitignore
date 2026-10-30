@@ -56,3 +56,7 @@ Thumbs.db
 
 # Fichiers copiés à la construction (apps/web)
 apps/web/public/maplibre/
+
+# Exports Expo (apps/mobile)
+dist-android/
+dist-ios/

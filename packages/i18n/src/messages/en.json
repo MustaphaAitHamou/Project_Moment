@@ -895,7 +895,9 @@
     "clearCache": "Clear cache",
     "cacheCleared": "Cache cleared.",
     "version": "Version {version}",
-    "about": "About"
+    "about": "About",
+    "restartForDirection": "Close and reopen the app to apply this language’s reading direction.",
+    "theme": "Theme"
   },
   "support": {
     "title": "Help and support",

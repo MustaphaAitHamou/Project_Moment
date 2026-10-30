@@ -1,0 +1,6 @@
+{
+  "CFBundleDisplayName": "Tamurt Events",
+  "NSLocationWhenInUseUsageDescription": "Your location is only used, when you ask, to find nearby events. It is not stored.",
+  "NSCalendarsUsageDescription": "Lets you add an event to your calendar, only when you ask.",
+  "NSCalendarsWriteOnlyAccessUsageDescription": "Lets you add an event to your calendar, only when you ask."
+}

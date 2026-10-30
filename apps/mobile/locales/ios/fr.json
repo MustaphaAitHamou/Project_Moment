@@ -1,0 +1,6 @@
+{
+  "CFBundleDisplayName": "Tamurt Events",
+  "NSLocationWhenInUseUsageDescription": "Votre position est utilisée uniquement, à votre demande, pour trouver des événements proches. Elle n’est pas enregistrée.",
+  "NSCalendarsUsageDescription": "Permet d’ajouter un événement à votre calendrier, uniquement lorsque vous le demandez.",
+  "NSCalendarsWriteOnlyAccessUsageDescription": "Permet d’ajouter un événement à votre calendrier, uniquement lorsque vous le demandez."
+}
