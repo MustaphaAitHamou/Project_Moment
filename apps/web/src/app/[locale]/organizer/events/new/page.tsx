@@ -1,7 +1,8 @@
 import { listMyOrganizations } from '@tamurt/api-client';
 import { isCountryCode, organizerRoleHasPermission } from '@tamurt/core';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { EventForm, emptyEventForm } from '@/components/organizer/event-form';
+import { EventForm } from '@/components/organizer/event-form';
+import { emptyEventForm } from '@/components/organizer/event-form-state';
 import { Alert } from '@/components/ui/alert';
 import { buttonClasses } from '@/components/ui/button';
 import { PageHeader } from '@/components/ui/page-header';
