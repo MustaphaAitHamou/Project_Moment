@@ -38,7 +38,7 @@ jobs:
             echo "Secret EXPO_TOKEN absent : configurez-le dans Settings > Secrets and variables > Actions." >&2
             exit 1
           fi
-      - uses: expo/expo-github-action@v8
+      - uses: expo/expo-github-action@v9
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
