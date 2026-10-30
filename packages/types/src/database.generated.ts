@@ -4037,6 +4037,16 @@ export type Database = {
         };
         Returns: boolean;
       };
+      organizer_team: {
+        Args: { p_organizer_id: string };
+        Returns: {
+          created_at: string;
+          display_name: string;
+          is_me: boolean;
+          role: Database['public']['Enums']['organizer_member_role'];
+          user_id: string;
+        }[];
+      };
       pricing_is_consistent: {
         Args: {
           p_offer: Omit<

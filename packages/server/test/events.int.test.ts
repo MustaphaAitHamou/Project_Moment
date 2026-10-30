@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { account, events, notifications } from '../src';
+import { account, checkout, events, notifications } from '../src';
 import { adminClient, anonClient, closePool, createTestUser, sql, testContext, type TestUser } from './helpers';
 
 describe('événements, recherche, agenda et notifications', () => {
@@ -71,6 +71,31 @@ describe('événements, recherche, agenda et notifications', () => {
     expect(farAway?.some((e) => e.id === created.id)).toBe(false);
     const { data: agenda } = await anon.rpc('agenda_events', { p_from: '2027-06-01T00:00:00Z', p_to: '2027-07-01T00:00:00Z' });
     expect(agenda?.some((o) => o.event_id === created.id)).toBe(true);
+  });
+
+  it('configure une billetterie FICTIVE sur un événement géré, achetable de bout en bout', async () => {
+    const created = await events.createEvent(
+      ctx,
+      owner.auth,
+      organizerId,
+      form({ title: 'Concert billetterie démo', isFree: false, registrationMode: 'tickets', capacity: null, priceMinMinor: 1500, priceMaxMinor: 1500, currency: 'EUR' }),
+      'publish',
+    );
+    const offer = await events.addDemoOffer(ctx, owner.auth, created.id, { name: 'Plein tarif', priceMinor: 1500, feeMinor: 100, capacity: 3, maxPerOrder: 2 });
+    const { data: row } = await adminClient().from('ticket_offers').select('environment, provider_id, status').eq('id', offer.id).single();
+    expect(row).toMatchObject({ environment: 'demo', provider_id: 'demo', status: 'on_sale' });
+
+    const stranger = await createTestUser({ roles: ['beta_tester'] });
+    await expect(events.addDemoOffer(ctx, stranger.auth, created.id, { name: 'Pirate', priceMinor: 100, capacity: 1 })).rejects.toMatchObject({ code: 'forbidden' });
+
+    const reservation = await checkout.createReservation(ctx, stranger.auth, { offerId: offer.id, quantity: 2 }, `demo-offer-${offer.id}`);
+    expect(reservation.environment).toBe('demo');
+    expect(reservation.pricing.subtotalMinor).toBe(3000);
+
+    await events.closeDemoOffer(ctx, owner.auth, created.id, offer.id);
+    const { data: closed } = await adminClient().from('ticket_offers').select('status').eq('id', offer.id).single();
+    expect(closed?.status).toBe('ended');
+    await expect(events.addDemoOffer(ctx, owner.auth, created.id, { name: 'Gratuit ?', priceMinor: 0, capacity: 1 })).rejects.toMatchObject({ code: 'validation_failed' });
   });
 
   it('gère les inscriptions gratuites avec contrôle de capacité', async () => {

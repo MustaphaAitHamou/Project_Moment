@@ -231,3 +231,18 @@ export const registrationSchema = z.object({
   eventId: uuidSchema,
   quantity: z.number().int().min(1, { error: 'validation.invalid_quantity' }).max(10, { error: 'validation.invalid_quantity' }),
 });
+
+/**
+ * Offre de billets du fournisseur FICTIF (démonstration) créée par un organisateur.
+ * Aucun billet réel : les offres réelles proviennent uniquement d'un partenaire de billetterie.
+ */
+export const demoOfferSchema = z
+  .object({
+    name: requiredText(1, 80),
+    priceMinor: z.number().int({ error: 'validation.invalid_amount' }).min(1, { error: 'validation.invalid_amount' }).max(100_000_000, { error: 'validation.invalid_amount' }),
+    feeMinor: z.number().int({ error: 'validation.invalid_amount' }).min(0, { error: 'validation.invalid_amount' }).default(0),
+    capacity: z.number().int().min(1, { error: 'validation.invalid_capacity' }).max(5000, { error: 'validation.invalid_capacity' }),
+    maxPerOrder: z.number().int().min(1, { error: 'validation.invalid_quantity' }).max(10, { error: 'validation.invalid_quantity' }).default(8),
+  })
+  .refine((value) => value.feeMinor <= value.priceMinor, { error: 'validation.invalid_amount', path: ['feeMinor'] });
+export type DemoOfferInput = Clean<z.input<typeof demoOfferSchema>>;

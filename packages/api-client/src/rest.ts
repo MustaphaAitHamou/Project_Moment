@@ -5,6 +5,7 @@ import type {
   BetaWaitlistInput,
   CreateListingInput,
   CreateReservationInput,
+  DemoOfferInput,
   DemoPaymentInput,
   DisputeInput,
   EventFormInput,
@@ -129,6 +130,8 @@ export function createTamurtApi(options: TamurtApiOptions) {
       update: (eventId: string, form: EventFormInput) => request<{ id: string; slug: string; status: string }>('PATCH', `/events/${eventId}`, { form }),
       changeStatus: (eventId: string, action: EventStatusAction) => request<{ id: string; status: string }>('POST', `/events/${eventId}/status`, action),
       track: (eventId: string, kind: 'view' | 'share' | 'calendar_add') => request<{ ok: true }>('POST', `/events/${eventId}/track`, { kind }),
+      addDemoOffer: (eventId: string, offer: DemoOfferInput) => request<{ id: string }>('POST', `/events/${eventId}/offers`, offer),
+      closeDemoOffer: (eventId: string, offerId: string) => request<{ ok: true }>('DELETE', `/events/${eventId}/offers/${offerId}`),
     },
     organizers: {
       create: (input: OrganizerProfileInput) => request<{ id: string; slug: string }>('POST', '/organizers', input),
