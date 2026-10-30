@@ -3861,6 +3861,7 @@ export type Database = {
         Args: { p_holder_ref: string; p_ticket_ref: string };
         Returns: boolean;
       };
+      demo_reset_data: { Args: Record<PropertyKey, never>; Returns: Json };
       event_audience: {
         Args: { p_event_id: string };
         Returns: {

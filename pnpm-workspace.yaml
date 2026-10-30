@@ -1,6 +1,7 @@
 packages:
   - apps/*
   - packages/*
+  - scripts
 
 # Versions partagées entre le web, le mobile et les packages (une seule source de vérité).
 catalog:
