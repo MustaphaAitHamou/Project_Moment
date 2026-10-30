@@ -1,0 +1,125 @@
+/* Fichier généré par `pnpm --filter @tamurt/ui build:css` — ne pas modifier à la main. */
+:root {
+  color-scheme: light;
+  --tm-background: #F7F3EE;
+  --tm-surface: #FFFFFF;
+  --tm-surface-raised: #FFFFFF;
+  --tm-surface-sunken: #EEE7DE;
+  --tm-border: #E0D6C9;
+  --tm-border-strong: #C7B9A7;
+  --tm-text: #14112B;
+  --tm-text-muted: #5A556F;
+  --tm-text-subtle: #7C7790;
+  --tm-text-on-primary: #FFFFFF;
+  --tm-primary: #E8401A;
+  --tm-primary-hover: #C02F11;
+  --tm-primary-soft: #FFF1EC;
+  --tm-accent: #FFC233;
+  --tm-accent-soft: #FFF9E6;
+  --tm-secondary: #3D3278;
+  --tm-secondary-soft: #F2F0FA;
+  --tm-success: #12A15E;
+  --tm-success-soft: #E6F6EE;
+  --tm-warning: #B97A00;
+  --tm-warning-soft: #FFF4DA;
+  --tm-danger: #D93036;
+  --tm-danger-soft: #FDE8E8;
+  --tm-info: #2F6FD8;
+  --tm-info-soft: #E7F0FD;
+  --tm-focus-ring: #FF5B2E;
+  --tm-overlay: rgba(20, 17, 43, 0.55);
+  --tm-demo: #7A4C0E;
+  --tm-demo-soft: #FFF0BF;
+  --tm-skeleton: #EEE7DE;
+  --tm-font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --tm-font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --tm-font-arabic: 'IBM Plex Sans Arabic', 'Noto Sans Arabic', ui-sans-serif, sans-serif;
+  --tm-radius-xs: 6px;
+  --tm-radius-sm: 8px;
+  --tm-radius-md: 12px;
+  --tm-radius-lg: 16px;
+  --tm-radius-xl: 24px;
+  --tm-radius-2xl: 32px;
+  --tm-radius-full: 9999px;
+  --tm-shadow-sm: 0 1px 2px rgba(20, 17, 43, 0.06), 0 1px 1px rgba(20, 17, 43, 0.04);
+  --tm-shadow-md: 0 4px 12px rgba(20, 17, 43, 0.08), 0 2px 4px rgba(20, 17, 43, 0.05);
+  --tm-shadow-lg: 0 12px 32px rgba(20, 17, 43, 0.12), 0 4px 8px rgba(20, 17, 43, 0.06);
+  --tm-shadow-glow: 0 8px 30px rgba(255, 91, 46, 0.35);
+  --tm-duration-instant: 80ms;
+  --tm-duration-fast: 140ms;
+  --tm-duration-base: 220ms;
+  --tm-duration-slow: 360ms;
+  --tm-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --tm-ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --tm-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --tm-background: #0C0A1A;
+  --tm-surface: #16132A;
+  --tm-surface-raised: #1E1A36;
+  --tm-surface-sunken: #100E20;
+  --tm-border: #2C2748;
+  --tm-border-strong: #3D3760;
+  --tm-text: #F4F1FF;
+  --tm-text-muted: #B3ADCB;
+  --tm-text-subtle: #8D86A8;
+  --tm-text-on-primary: #FFFFFF;
+  --tm-primary: #FF5B2E;
+  --tm-primary-hover: #FF7449;
+  --tm-primary-soft: #3A1A12;
+  --tm-accent: #FFC233;
+  --tm-accent-soft: #3A2C0C;
+  --tm-secondary: #9C90D0;
+  --tm-secondary-soft: #25204A;
+  --tm-success: #3DD68C;
+  --tm-success-soft: #0E2E20;
+  --tm-warning: #F5B83D;
+  --tm-warning-soft: #33260A;
+  --tm-danger: #FF6B70;
+  --tm-danger-soft: #3A1316;
+  --tm-info: #6FA8FF;
+  --tm-info-soft: #132845;
+  --tm-focus-ring: #FFC233;
+  --tm-overlay: rgba(5, 4, 12, 0.7);
+  --tm-demo: #FFD254;
+  --tm-demo-soft: #3A2C0C;
+  --tm-skeleton: #231F3B;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --tm-background: #0C0A1A;
+    --tm-surface: #16132A;
+    --tm-surface-raised: #1E1A36;
+    --tm-surface-sunken: #100E20;
+    --tm-border: #2C2748;
+    --tm-border-strong: #3D3760;
+    --tm-text: #F4F1FF;
+    --tm-text-muted: #B3ADCB;
+    --tm-text-subtle: #8D86A8;
+    --tm-text-on-primary: #FFFFFF;
+    --tm-primary: #FF5B2E;
+    --tm-primary-hover: #FF7449;
+    --tm-primary-soft: #3A1A12;
+    --tm-accent: #FFC233;
+    --tm-accent-soft: #3A2C0C;
+    --tm-secondary: #9C90D0;
+    --tm-secondary-soft: #25204A;
+    --tm-success: #3DD68C;
+    --tm-success-soft: #0E2E20;
+    --tm-warning: #F5B83D;
+    --tm-warning-soft: #33260A;
+    --tm-danger: #FF6B70;
+    --tm-danger-soft: #3A1316;
+    --tm-info: #6FA8FF;
+    --tm-info-soft: #132845;
+    --tm-focus-ring: #FFC233;
+    --tm-overlay: rgba(5, 4, 12, 0.7);
+    --tm-demo: #FFD254;
+    --tm-demo-soft: #3A2C0C;
+    --tm-skeleton: #231F3B;
+  }
+}
