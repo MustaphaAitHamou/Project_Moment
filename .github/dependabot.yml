@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      # Les versions natives sont alignées sur le SDK Expo : mise à jour via `npx expo install --fix`.
+      - dependency-name: react-native
+      - dependency-name: "expo*"
+      - dependency-name: "react-native-*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

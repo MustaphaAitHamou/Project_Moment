@@ -1,0 +1,106 @@
+# Intégration continue : qualité (types, lint, tests unitaires, build), base de données
+# (migrations, lint SQL, tests d'intégration, E2E) et application mobile (Jest, bundles).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 22
+  TURBO_TELEMETRY_DISABLED: 1
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  quality:
+    name: Types, lint, tests unitaires, build web
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - name: Build web (valeurs publiques factices, aucune donnée réelle)
+        run: pnpm build:web
+        env:
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-public-anon-key
+
+  database-and-e2e:
+    name: Supabase, tests d'intégration et E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Démarrer Supabase local (Docker)
+        run: pnpm exec supabase start -x studio,imgproxy,supavisor,logflare,vector,edge-runtime,realtime
+      - name: Lint SQL
+        run: pnpm db:lint
+      - name: Données de démonstration fictives
+        run: pnpm db:seed
+      - name: Variables locales (générées depuis supabase status)
+        run: node scripts/setup.mjs
+      - name: Tests d'intégration (RLS, achat, revente, bêta, événements)
+        run: pnpm test:integration
+      - name: Navigateur Playwright
+        run: pnpm --filter @tamurt/web exec playwright install --with-deps chromium
+      - name: Tests E2E (construction + serveur de production)
+        run: pnpm test:e2e
+        env:
+          CI: true
+      - name: Rapport Playwright
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report
+          retention-days: 7
+      - name: Arrêter Supabase
+        if: always()
+        run: pnpm exec supabase stop --no-backup
+
+  mobile:
+    name: Application mobile (Jest + bundles Expo)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:mobile
+      - name: Export des bundles Android et iOS (vérifie la compilation JavaScript)
+        working-directory: apps/mobile
+        run: |
+          npx expo export --platform android --output-dir dist-android
+          npx expo export --platform ios --output-dir dist-ios
+        env:
+          EXPO_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-public-anon-key
+          EXPO_PUBLIC_API_URL: http://127.0.0.1:3000
