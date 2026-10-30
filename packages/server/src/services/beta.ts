@@ -116,7 +116,7 @@ export async function createInvitation(ctx: ServerContext, staff: AuthUser, inpu
   }
   let emailSent = false;
   if (email) {
-    const redeemUrl = `${ctx.env.APP_URL}/${locale}/beta?redeem=1`;
+    const redeemUrl = `${ctx.env.APP_URL}/${locale}/beta/redeem`;
     emailSent = (await ctx.email.send(betaInvitationEmail(email, locale, code, redeemUrl, input.expiresInDays))).delivered;
   }
   return { id: invitation.id, code, email, expiresAt, emailSent };
