@@ -1,5 +1,5 @@
 import { listCities } from '@tamurt/api-client';
-import { COUNTRIES, EVENT_CATEGORY_SLUGS, type EventSearchFilters } from '@tamurt/core';
+import { EVENT_CATEGORY_SLUGS, type COUNTRIES, type EventSearchFilters } from '@tamurt/core';
 import { ArrowRight, CalendarDays, Map as MapIcon, Sparkles } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';

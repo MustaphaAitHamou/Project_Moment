@@ -9,6 +9,7 @@ import { PageHeader } from '@/components/ui/page-header';
 import { Link } from '@/i18n/navigation';
 import type { AppLocale } from '@/i18n/routing';
 import { eventDay, eventTime, nameOf } from '@/lib/format';
+import { serverNowMs } from '@/lib/clock';
 import { requireViewer } from '@/lib/guards';
 import { getSupabase } from '@/lib/session';
 
@@ -18,8 +19,8 @@ export default async function MyAgendaPage({ params }: PageProps<'/[locale]/acco
   setRequestLocale(locale);
   await requireViewer(locale, '/account/agenda');
   const t = await getTranslations();
-  const from = new Date(Date.now() - 6 * 3600_000);
-  const to = new Date(Date.now() + 183 * 86_400_000);
+  const from = new Date(serverNowMs() - 6 * 3600_000);
+  const to = new Date(serverNowMs() + 183 * 86_400_000);
   const entries = await getMyAgenda(await getSupabase(), from.toISOString(), to.toISOString());
   const days = [...groupByLocalDay(entries).entries()].sort(([a], [b]) => a.localeCompare(b));
   return (

@@ -4,7 +4,7 @@ import { COUNTRY_CODES } from '@tamurt/core';
 import { betaWaitlistSchema } from '@tamurt/validation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import type { z } from 'zod';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ export function WaitlistForm() {
     defaultValues: { email: '', fullName: '', countryCode: 'FR', platforms: ['web'], locale, consent: false as unknown as true },
   });
   const errors = form.formState.errors;
-  const platforms = form.watch('platforms') ?? [];
+  const platforms = useWatch({ control: form.control, name: 'platforms' }) ?? [];
 
   const onSubmit = form.handleSubmit(async (values) => {
     try {

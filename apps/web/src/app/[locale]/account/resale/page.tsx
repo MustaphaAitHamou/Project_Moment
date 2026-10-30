@@ -10,6 +10,7 @@ import { PageHeader, SectionHeader } from '@/components/ui/page-header';
 import { Link } from '@/i18n/navigation';
 import type { AppLocale } from '@/i18n/routing';
 import { dateTimeShort, eventDateTime, money } from '@/lib/format';
+import { serverNowMs } from '@/lib/clock';
 import { requireViewer } from '@/lib/guards';
 import { getSupabase } from '@/lib/session';
 import { resaleTone } from '@/lib/status';
@@ -28,7 +29,7 @@ export default async function MyResalePage({ params, searchParams }: PageProps<'
     supabase.from('resale_listings').select('ticket_id').eq('seller_id', viewer.id).in('status', ['active', 'reserved']),
   ]);
   const listed = new Set((activeListings.data ?? []).map((row) => row.ticket_id));
-  const now = Date.now();
+  const now = serverNowMs();
   const eligible = tickets
     .filter((ticket) => ticket.status === 'issued' && ticket.offer?.resale_allowed && ticket.event.status === 'published' && new Date(ticket.event.starts_at).getTime() > now && !listed.has(ticket.id))
     .map((ticket) => ({ id: ticket.id, label: `${ticket.event.title} — ${eventDateTime(ticket.event.starts_at, ticket.event.timezone, locale)} — ${ticket.offer?.name ?? ''}` }));

@@ -75,6 +75,9 @@ function assertSameOrigin(request: NextRequest): void {
 async function accessTokenFrom(request: NextRequest): Promise<string | null> {
   const header = request.headers.get('authorization');
   if (header?.toLowerCase().startsWith('bearer ')) return header.slice(7).trim() || null;
+  // Sans cookie de session : simplement non authentifié (401).
+  if (!request.cookies.getAll().some((cookie) => cookie.name.startsWith('sb-'))) return null;
+  // Avec cookie de session : protection CSRF des requêtes de modification.
   assertSameOrigin(request);
   const supabase = await createSupabaseServerClient();
   // getSession lit (et rafraîchit si besoin) le jeton du cookie ; il est ensuite VÉRIFIÉ par authenticate (getUser).

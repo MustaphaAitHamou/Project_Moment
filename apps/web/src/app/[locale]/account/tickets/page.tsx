@@ -8,6 +8,7 @@ import { PageHeader, SectionHeader } from '@/components/ui/page-header';
 import { Link } from '@/i18n/navigation';
 import type { AppLocale } from '@/i18n/routing';
 import { eventDateTime, nameOf } from '@/lib/format';
+import { serverNowMs } from '@/lib/clock';
 import { requireViewer } from '@/lib/guards';
 import { getSupabase } from '@/lib/session';
 
@@ -17,7 +18,7 @@ export default async function TicketsPage({ params }: PageProps<'/[locale]/accou
   await requireViewer(locale, '/account/tickets');
   const t = await getTranslations();
   const tickets = await listMyTickets(await getSupabase());
-  const now = Date.now();
+  const now = serverNowMs();
   const upcoming = tickets.filter((ticket) => new Date(ticket.event.ends_at ?? ticket.event.starts_at).getTime() >= now);
   const past = tickets.filter((ticket) => new Date(ticket.event.ends_at ?? ticket.event.starts_at).getTime() < now);
   const statusTone = (status: string) => (status === 'issued' ? 'success' : status === 'transferred' ? 'info' : 'neutral') as 'success' | 'info' | 'neutral';

@@ -33,7 +33,9 @@ export function CreateListingForm({ tickets, preselected }: { tickets: EligibleT
   const api = useApi();
   const router = useRouter();
   const [ticketId, setTicketId] = useState(preselected && tickets.some((ticket) => ticket.id === preselected) ? preselected : (tickets[0]?.id ?? ''));
-  const [quote, setQuote] = useState<Quote | null>(null);
+  // Devis associé au billet sélectionné (ignoré s'il concerne un autre billet).
+  const [quoted, setQuoted] = useState<{ ticketId: string; quote: Quote } | null>(null);
+  const quote = quoted?.ticketId === ticketId ? quoted.quote : null;
   const [price, setPrice] = useState('');
   const [note, setNote] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -43,13 +45,12 @@ export function CreateListingForm({ tickets, preselected }: { tickets: EligibleT
   useEffect(() => {
     if (!ticketId) return;
     let cancelled = false;
-    setQuote(null);
     api.resale
       .quote(ticketId)
       .then((result) => {
         if (cancelled) return;
         const q = result as unknown as Quote;
-        setQuote(q);
+        setQuoted({ ticketId, quote: q });
         setPrice(isCurrencyCode(q.currency) ? (Number(q.max_allowed_price_minor) / 100).toFixed(q.currency === 'DZD' ? 0 : 2) : '');
       })
       .catch((caught) => !cancelled && setError(errorMessage(caught, t('common.unknownError'))));

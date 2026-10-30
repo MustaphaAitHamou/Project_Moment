@@ -9,6 +9,7 @@ import { PageHeader, SectionHeader } from '@/components/ui/page-header';
 import { Link } from '@/i18n/navigation';
 import type { AppLocale } from '@/i18n/routing';
 import { nameOf } from '@/lib/format';
+import { serverNowMs } from '@/lib/clock';
 import { requireViewer } from '@/lib/guards';
 import { getSupabase } from '@/lib/session';
 
@@ -18,7 +19,7 @@ export default async function FavoritesPage({ params }: PageProps<'/[locale]/acc
   await requireViewer(locale, '/account/favorites');
   const t = await getTranslations();
   const rows = await listFavorites(await getSupabase());
-  const now = Date.now();
+  const now = serverNowMs();
   const cards: EventCardData[] = rows.map(({ event }) => ({
     id: event.id,
     slug: event.slug,
