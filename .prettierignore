@@ -1,0 +1,10 @@
+pnpm-lock.yaml
+node_modules
+.next
+.expo
+dist
+coverage
+playwright-report
+test-results
+packages/types/src/database.generated.ts
+supabase/.temp

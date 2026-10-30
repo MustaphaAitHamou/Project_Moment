@@ -1,0 +1,18 @@
+{
+  "name": "@tamurt/config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Configurations partagées (TypeScript, ESLint) du monorepo Tamurt Events.",
+  "type": "module",
+  "exports": {
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./tsconfig/library.json": "./tsconfig/library.json",
+    "./eslint/base": "./eslint/base.js"
+  },
+  "dependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "globals": "16.4.0",
+    "typescript-eslint": "8.72.1"
+  }
+}

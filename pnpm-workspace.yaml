@@ -1,0 +1,23 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Versions partagées entre le web, le mobile et les packages (une seule source de vérité).
+catalog:
+  typescript: 6.0.3
+  zod: 4.6.7
+  "@supabase/supabase-js": 2.118.0
+  vitest: 5.0.5
+  react: 19.3.0
+  react-dom: 19.3.0
+  date-fns: 4.4.0
+  "@date-fns/tz": 1.5.0
+  "@tanstack/react-query": 5.105.0
+  use-intl: 4.14.9
+
+onlyBuiltDependencies:
+  - supabase
+  - esbuild
+  - sharp
+  - "@tailwindcss/oxide"
+  - unrs-resolver

@@ -1,0 +1,43 @@
+{
+  "name": "tamurt-events",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tamurt Events — plateforme internationale de découverte, création, réservation et revente autorisée de billets d'événements (Tamurt Services LLC).",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=@tamurt/web",
+    "dev:web": "pnpm --filter @tamurt/web dev",
+    "dev:mobile": "pnpm --filter @tamurt/mobile start",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=@tamurt/web",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:integration": "pnpm --filter @tamurt/server test:integration",
+    "test:e2e": "pnpm --filter @tamurt/web test:e2e",
+    "test:mobile": "pnpm --filter @tamurt/mobile test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:status": "supabase status",
+    "db:reset": "supabase db reset && pnpm db:seed",
+    "db:seed": "tsx scripts/seed/index.ts",
+    "db:types": "node scripts/gen-db-types.mjs",
+    "db:lint": "supabase db lint --schema public,demo_provider --level warning --fail-on error",
+    "demo:reset": "tsx scripts/seed/index.ts --reset",
+    "doctor": "node scripts/doctor.mjs",
+    "setup": "node scripts/setup.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "prettier": "3.8.1",
+    "supabase": "2.122.0",
+    "tsx": "4.23.15",
+    "turbo": "2.11.10",
+    "typescript": "catalog:"
+  }
+}
