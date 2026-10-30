@@ -43,7 +43,7 @@ export default async function MyAgendaPage({ params }: PageProps<'/[locale]/acco
                     <div className="flex flex-wrap gap-1.5">
                       {entry.is_demo ? <Badge tone="demo">{t('app.demoBadge')}</Badge> : null}
                       {entry.status === 'cancelled' ? <Badge tone="danger">{t('event.cancelledBanner')}</Badge> : null}
-                      {entry.tickets_count > 0 ? <Badge tone="primary"><Ticket className="h-3 w-3" aria-hidden />{t('agenda.relationTickets')}</Badge> : null}
+                      {entry.tickets_count > 0 ? <Badge tone="primary"><Ticket className="h-3 w-3" aria-hidden />{t('agenda.relationTickets', { count: entry.tickets_count })}</Badge> : null}
                       {entry.is_registered ? <Badge tone="success"><UserCheck className="h-3 w-3" aria-hidden />{t('agenda.relationRegistered')}</Badge> : null}
                       {entry.is_favorite ? <Badge tone="neutral"><Heart className="h-3 w-3" aria-hidden />{t('agenda.relationFavorite')}</Badge> : null}
                     </div>

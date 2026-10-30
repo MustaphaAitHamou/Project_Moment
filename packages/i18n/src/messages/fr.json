@@ -915,7 +915,8 @@
     "contactTitle": "Nous contacter",
     "contactText": "Bêta-testeur ? Utilisez le formulaire de retour Tamurt Beta pour signaler un bug ou proposer une amélioration.",
     "contactEmail": "Écrire au support : {email}",
-    "reportProblem": "Signaler un problème"
+    "reportProblem": "Signaler un problème",
+    "faqTitle": "Questions fréquentes"
   },
   "beta": {
     "title": "Tamurt Beta",

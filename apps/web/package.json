@@ -4,7 +4,9 @@
   "private": true,
   "description": "Site web Tamurt Events (Next.js App Router) et API serveur commune au web et au mobile.",
   "scripts": {
+    "predev": "node scripts/copy-maplibre-worker.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

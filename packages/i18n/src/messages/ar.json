@@ -915,7 +915,8 @@
     "contactTitle": "اتصل بنا",
     "contactText": "هل أنت مختبر للنسخة التجريبية؟ استخدم نموذج ملاحظات Tamurt Beta للإبلاغ عن خلل أو اقتراح تحسين.",
     "contactEmail": "راسل الدعم: {email}",
-    "reportProblem": "الإبلاغ عن مشكلة"
+    "reportProblem": "الإبلاغ عن مشكلة",
+    "faqTitle": "الأسئلة الشائعة"
   },
   "beta": {
     "title": "Tamurt Beta",

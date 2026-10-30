@@ -91,3 +91,12 @@ describe('fuseaux horaires', () => {
     expect(text).toContain('23:00');
   });
 });
+
+describe('format horaire', () => {
+  it('utilise le format 24 h pour toutes les locales françaises (fr-DZ, fr-CA)', async () => {
+    const { formatEventTime } = await import('../src/dates');
+    expect(formatEventTime('2026-11-05T19:30:00Z', 'Africa/Algiers', 'fr-DZ')).toBe('20:30');
+    expect(formatEventTime('2026-11-05T19:30:00Z', 'America/Toronto', 'fr-CA')).toMatch(/^14\s?h?\s?:?30|^14:30/);
+    expect(formatEventTime('2026-11-05T19:30:00Z', 'America/New_York', 'en-US')).toMatch(/PM/);
+  });
+});

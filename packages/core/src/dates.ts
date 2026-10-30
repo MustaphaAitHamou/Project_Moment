@@ -239,6 +239,14 @@ export interface FormatEventDateOptions {
   month?: 'short' | 'long';
 }
 
+/**
+ * Les locales françaises hors France (ex. fr-DZ, fr-CA) héritent parfois d'un format 12 h dans
+ * les données CLDR : l'interface en français utilise toujours le format 24 h.
+ */
+export function hourCycleFor(locale: string): 'h23' | undefined {
+  return /^fr(-|$)/i.test(locale) ? 'h23' : undefined;
+}
+
 export function formatEventDateTime(
   iso: string,
   timeZone: string,
@@ -253,6 +261,7 @@ export function formatEventDateTime(
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    ...(hourCycleFor(locale) ? { hourCycle: hourCycleFor(locale) } : {}),
     ...(options.withTimeZoneName ? { timeZoneName: 'short' } : {}),
   }).format(new Date(iso));
 }
@@ -268,7 +277,7 @@ export function formatEventDay(iso: string, timeZone: string, locale: string): s
 }
 
 export function formatEventTime(iso: string, timeZone: string, locale: string): string {
-  return new Intl.DateTimeFormat(locale, { timeZone, hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+  return new Intl.DateTimeFormat(locale, { timeZone, hour: '2-digit', minute: '2-digit', ...(hourCycleFor(locale) ? { hourCycle: hourCycleFor(locale) } : {}) }).format(new Date(iso));
 }
 
 /** "sam. 14 nov. 2026, 20:30 – 23:00" ou plage multi-jours. */
