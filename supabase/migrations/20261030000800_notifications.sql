@@ -314,7 +314,9 @@ begin
   else
     insert into public.event_registrations (event_id, user_id, quantity)
     values (p_event_id, v_uid, p_quantity) returning * into v_reg;
+    perform set_config('tamurt.internal_counters', 'on', true);
     update public.events set registrations_count = registrations_count + 1 where id = p_event_id;
+    perform set_config('tamurt.internal_counters', 'off', true);
     insert into public.event_daily_stats (event_id, day, registrations)
     values (p_event_id, (now() at time zone 'utc')::date, 1)
     on conflict (event_id, day) do update set registrations = public.event_daily_stats.registrations + 1;
@@ -345,7 +347,9 @@ begin
   if not found then
     raise exception 'registration_not_found' using errcode = 'P0002';
   end if;
+  perform set_config('tamurt.internal_counters', 'on', true);
   update public.events set registrations_count = greatest(registrations_count - 1, 0) where id = p_event_id;
+  perform set_config('tamurt.internal_counters', 'off', true);
   return v_reg;
 end;
 $$;

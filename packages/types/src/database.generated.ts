@@ -1150,6 +1150,42 @@ export type Database = {
           },
         ];
       };
+      geocode_cache: {
+        Row: {
+          country_code: string;
+          created_at: string;
+          provider: string;
+          query: string;
+          query_hash: string;
+          results: NonNullable<Json>;
+        };
+        ComputedFields: never;
+        Insert: {
+          country_code: string;
+          created_at?: string;
+          provider?: string;
+          query: string;
+          query_hash: string;
+          results: NonNullable<Json>;
+        };
+        Update: {
+          country_code?: string;
+          created_at?: string;
+          provider?: string;
+          query?: string;
+          query_hash?: string;
+          results?: NonNullable<Json>;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'geocode_cache_country_code_fkey';
+            columns: ['country_code'];
+            isOneToOne: false;
+            referencedRelation: 'countries';
+            referencedColumns: ['code'];
+          },
+        ];
+      };
       idempotency_keys: {
         Row: {
           created_at: string;
@@ -3549,7 +3585,7 @@ export type Database = {
           p_idempotency_key: string;
           p_offer_id: string;
           p_pricing: Json;
-          p_promotion_id: string;
+          p_promotion_id?: string;
           p_provider_hold_ref: string;
           p_quantity: number;
           p_user_id: string;
@@ -3956,6 +3992,16 @@ export type Database = {
           venue_name: string;
         }[];
       };
+      my_sessions: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          created_at: string;
+          id: string;
+          is_current: boolean;
+          updated_at: string;
+          user_agent: string;
+        }[];
+      };
       nearby_cities: {
         Args: { p_lat: number; p_limit?: number; p_lng: number };
         Returns: {
@@ -4243,7 +4289,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
-      resale_quote: { Args: { p_asking_price_minor: number; p_ticket_id: string }; Returns: Json };
+      resale_quote: { Args: { p_asking_price_minor?: number; p_ticket_id: string }; Returns: Json };
       resale_record_payment: {
         Args: {
           p_amount_minor: number;
@@ -4417,6 +4463,7 @@ export type Database = {
         }[];
       };
       search_normalize: { Args: { input: string }; Returns: string };
+      track_event_interaction: { Args: { p_event_id: string; p_kind: string }; Returns: undefined };
       try_uuid: { Args: { p_value: string }; Returns: string };
     };
     Enums: {

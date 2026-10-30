@@ -1213,6 +1213,8 @@
     "only_owner_can_manage_owners": "Seul un propriétaire peut gérer les propriétaires.",
     "account_has_owned_organizers": "Transférez ou supprimez vos organisations avant de supprimer votre compte.",
     "geocoding_unavailable": "Recherche d'adresse momentanément indisponible.",
-    "internal_error": "Une erreur interne est survenue."
+    "internal_error": "Une erreur interne est survenue.",
+    "promo_code_invalid": "Code promo invalide ou expiré.",
+    "promo_code_not_allowed": "Ce code promo n'est pas autorisé pour cette commande."
   }
 }

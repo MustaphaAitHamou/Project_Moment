@@ -223,6 +223,7 @@ create trigger organizer_members_keep_owner before update or delete on public.or
 create or replace function public.organizer_members_guard()
 returns trigger
 language plpgsql
+security definer
 set search_path = ''
 as $$
 declare
@@ -230,6 +231,12 @@ declare
 begin
   if public.is_service_context() or public.is_staff() then
     return coalesce(new, old);
+  end if;
+  -- Premier propriétaire : le créateur de l'organisation (inséré par le trigger de création).
+  if tg_op = 'INSERT' and new.role = 'owner'
+     and not exists (select 1 from public.organizer_members m where m.organizer_id = new.organizer_id)
+     and exists (select 1 from public.organizer_profiles o where o.id = new.organizer_id and o.created_by = new.user_id) then
+    return new;
   end if;
   select m.role into v_actor_role from public.organizer_members m
   where m.organizer_id = coalesce(new.organizer_id, old.organizer_id) and m.user_id = auth.uid();

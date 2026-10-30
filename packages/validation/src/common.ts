@@ -105,6 +105,10 @@ export const idempotencyKeySchema = z
 
 export type ValidationIssue = { path: string; message: string };
 
+type UndefinedKeys<T> = { [K in keyof T]-?: undefined extends T[K] ? K : never }[keyof T];
+/** Rend réellement optionnelles les clés dont la valeur peut être undefined (sortie des transforms). */
+export type Clean<T> = T extends object ? Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>> : T;
+
 /** Aplatit les erreurs Zod en { chemin, clé de message } pour les réponses API. */
 export function flattenIssues(error: z.ZodError): ValidationIssue[] {
   return error.issues.map((issue) => ({

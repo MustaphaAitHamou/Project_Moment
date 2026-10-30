@@ -1213,6 +1213,8 @@
     "only_owner_can_manage_owners": "Only an owner can manage owners.",
     "account_has_owned_organizers": "Transfer or delete your organizations before deleting your account.",
     "geocoding_unavailable": "Address search is temporarily unavailable.",
-    "internal_error": "An internal error occurred."
+    "internal_error": "An internal error occurred.",
+    "promo_code_invalid": "Invalid or expired promo code.",
+    "promo_code_not_allowed": "This promo code isn't allowed for this order."
   }
 }

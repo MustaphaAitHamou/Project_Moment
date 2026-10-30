@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { normalizeInvitationCode, isInvitationCodeFormat } from '@tamurt/core';
-import { countryCodeSchema, emailSchema, localeSchema, optionalText, positiveMinorAmountSchema, requiredText, uuidSchema } from './common';
+import { countryCodeSchema, emailSchema, localeSchema, optionalText, positiveMinorAmountSchema, requiredText, uuidSchema, type Clean } from './common';
 
 // -----------------------------------------------------------------------------
 // Billetterie
@@ -20,10 +20,10 @@ export const createReservationSchema = z.object({
     .optional()
     .transform((value) => (value ? value.toUpperCase() : undefined)),
 });
-export type CreateReservationInput = z.infer<typeof createReservationSchema>;
+export type CreateReservationInput = Clean<z.infer<typeof createReservationSchema>>;
 
 export const createOrderSchema = z.object({ reservationId: uuidSchema });
-export type CreateOrderInput = z.infer<typeof createOrderSchema>;
+export type CreateOrderInput = Clean<z.infer<typeof createOrderSchema>>;
 
 /**
  * Paiement SIMULÉ : aucun moyen de paiement n'est collecté. Le scénario permet de démontrer
@@ -32,7 +32,7 @@ export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 export const demoPaymentSchema = z.object({
   scenario: z.enum(['success', 'declined', 'error']).default('success'),
 });
-export type DemoPaymentInput = z.infer<typeof demoPaymentSchema>;
+export type DemoPaymentInput = Clean<z.infer<typeof demoPaymentSchema>>;
 
 // -----------------------------------------------------------------------------
 // Revente
@@ -42,7 +42,7 @@ export const createListingSchema = z.object({
   askingPriceMinor: positiveMinorAmountSchema,
   note: optionalText(500),
 });
-export type CreateListingInput = z.infer<typeof createListingSchema>;
+export type CreateListingInput = Clean<z.infer<typeof createListingSchema>>;
 
 export const purchaseListingSchema = z.object({ listingId: uuidSchema });
 
@@ -53,14 +53,14 @@ export const disputeSchema = z.object({
   }),
   details: optionalText(2000),
 });
-export type DisputeInput = z.infer<typeof disputeSchema>;
+export type DisputeInput = Clean<z.infer<typeof disputeSchema>>;
 
 export const reportListingSchema = z.object({
   listingId: uuidSchema,
   reason: z.enum(['counterfeit_ticket', 'price_abuse', 'scam', 'spam', 'other'], { error: 'validation.required' }),
   details: optionalText(2000),
 });
-export type ReportListingInput = z.infer<typeof reportListingSchema>;
+export type ReportListingInput = Clean<z.infer<typeof reportListingSchema>>;
 
 // -----------------------------------------------------------------------------
 // Programme Tamurt Beta
@@ -78,7 +78,7 @@ export const betaWaitlistSchema = z.object({
   locale: localeSchema,
   consent: z.literal(true, { error: 'validation.consent_required' }),
 });
-export type BetaWaitlistInput = z.infer<typeof betaWaitlistSchema>;
+export type BetaWaitlistInput = Clean<z.infer<typeof betaWaitlistSchema>>;
 
 export const betaRedeemSchema = z.object({
   code: z
@@ -89,7 +89,7 @@ export const betaRedeemSchema = z.object({
     .transform((value) => normalizeInvitationCode(value))
     .refine((value) => isInvitationCodeFormat(value), { error: 'validation.invalid_code' }),
 });
-export type BetaRedeemInput = z.infer<typeof betaRedeemSchema>;
+export type BetaRedeemInput = Clean<z.infer<typeof betaRedeemSchema>>;
 
 export const betaFeedbackSchema = z.discriminatedUnion('kind', [
   z.object({
@@ -123,7 +123,7 @@ export const betaFeedbackSchema = z.discriminatedUnion('kind', [
     deviceInfo: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).default({}),
   }),
 ]);
-export type BetaFeedbackInput = z.infer<typeof betaFeedbackSchema>;
+export type BetaFeedbackInput = Clean<z.infer<typeof betaFeedbackSchema>>;
 
 export const betaInvitationCreateSchema = z
   .object({
@@ -133,7 +133,7 @@ export const betaInvitationCreateSchema = z
     expiresInDays: z.number().int().min(1).max(90).default(30),
   })
   .refine((value) => value.waitlistId || value.email, { error: 'validation.invitation_target_required', path: ['email'] });
-export type BetaInvitationCreateInput = z.infer<typeof betaInvitationCreateSchema>;
+export type BetaInvitationCreateInput = Clean<z.infer<typeof betaInvitationCreateSchema>>;
 
 // -----------------------------------------------------------------------------
 // Géocodage
@@ -142,4 +142,4 @@ export const geocodeQuerySchema = z.object({
   q: requiredText(3, 200),
   country: countryCodeSchema,
 });
-export type GeocodeQueryInput = z.infer<typeof geocodeQuerySchema>;
+export type GeocodeQueryInput = Clean<z.infer<typeof geocodeQuerySchema>>;

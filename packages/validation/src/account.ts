@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { countryCodeSchema, emailSchema, localeSchema, requiredText, timezoneSchema, uuidSchema } from './common';
+import { countryCodeSchema, emailSchema, localeSchema, requiredText, timezoneSchema, uuidSchema, type Clean } from './common';
 
 /**
  * Politique de mot de passe alignée sur Supabase Auth (config.toml) :
@@ -22,16 +22,16 @@ export const signUpSchema = z.object({
   countryCode: countryCodeSchema.optional(),
   acceptTerms: z.literal(true, { error: 'validation.terms_required' }),
 });
-export type SignUpInput = z.infer<typeof signUpSchema>;
+export type SignUpInput = Clean<z.infer<typeof signUpSchema>>;
 
 export const signInSchema = z.object({
   email: emailSchema,
   password: z.string({ error: 'validation.required' }).min(1, { error: 'validation.required' }).max(72),
 });
-export type SignInInput = z.infer<typeof signInSchema>;
+export type SignInInput = Clean<z.infer<typeof signInSchema>>;
 
 export const forgotPasswordSchema = z.object({ email: emailSchema });
-export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+export type ForgotPasswordInput = Clean<z.infer<typeof forgotPasswordSchema>>;
 
 export const updatePasswordSchema = z
   .object({ password: passwordSchema, confirmPassword: z.string() })
@@ -39,7 +39,7 @@ export const updatePasswordSchema = z
     error: 'validation.passwords_mismatch',
     path: ['confirmPassword'],
   });
-export type UpdatePasswordInput = z.infer<typeof updatePasswordSchema>;
+export type UpdatePasswordInput = Clean<z.infer<typeof updatePasswordSchema>>;
 
 export const profileUpdateSchema = z.object({
   displayName: requiredText(2, 80),
@@ -48,7 +48,7 @@ export const profileUpdateSchema = z.object({
   timezone: timezoneSchema.nullable(),
   homeCityId: uuidSchema.nullable(),
 });
-export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>;
+export type ProfileUpdateInput = Clean<z.infer<typeof profileUpdateSchema>>;
 
 export const notificationPreferencesSchema = z.object({
   push_enabled: z.boolean(),
@@ -59,14 +59,14 @@ export const notificationPreferencesSchema = z.object({
   organizer_updates_enabled: z.boolean(),
   marketing_enabled: z.boolean(),
 });
-export type NotificationPreferencesInput = z.infer<typeof notificationPreferencesSchema>;
+export type NotificationPreferencesInput = Clean<z.infer<typeof notificationPreferencesSchema>>;
 
 /** Suppression du compte : confirmation explicite + ré-authentification par mot de passe. */
 export const deleteAccountSchema = z.object({
   password: z.string({ error: 'validation.required' }).min(1, { error: 'validation.required' }).max(72),
   confirm: z.literal(true, { error: 'validation.confirmation_required' }),
 });
-export type DeleteAccountInput = z.infer<typeof deleteAccountSchema>;
+export type DeleteAccountInput = Clean<z.infer<typeof deleteAccountSchema>>;
 
 export const pushTokenSchema = z.object({
   token: z.string().min(10).max(400),
@@ -74,4 +74,4 @@ export const pushTokenSchema = z.object({
   deviceName: z.string().max(120).optional(),
   appVersion: z.string().max(40).optional(),
 });
-export type PushTokenInput = z.infer<typeof pushTokenSchema>;
+export type PushTokenInput = Clean<z.infer<typeof pushTokenSchema>>;

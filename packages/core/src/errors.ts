@@ -64,6 +64,8 @@ export const ERROR_STATUS = {
   event_full: 409,
   registration_not_available: 409,
   too_many_active_reservations: 429,
+  promo_code_invalid: 422,
+  promo_code_not_allowed: 422,
   live_mode_disabled: 403,
   demo_mode_disabled: 403,
   demo_requires_demo_payment: 403,

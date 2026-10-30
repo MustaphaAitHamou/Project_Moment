@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { normalizePhone, ORGANIZER_KINDS } from '@tamurt/core';
-import { countryCodeSchema, emailSchema, optionalEmailSchema, optionalText, requiredText, uuidSchema, webUrlSchema } from './common';
+import { countryCodeSchema, emailSchema, optionalEmailSchema, optionalText, requiredText, uuidSchema, webUrlSchema, type Clean } from './common';
 
 export const organizerProfileSchema = z
   .object({
@@ -18,20 +18,20 @@ export const organizerProfileSchema = z
       ctx.addIssue({ code: 'custom', path: ['publicPhone'], message: 'validation.invalid_phone' });
     }
   });
-export type OrganizerProfileInput = z.infer<typeof organizerProfileSchema>;
+export type OrganizerProfileInput = Clean<z.infer<typeof organizerProfileSchema>>;
 
 export const organizerInvitationSchema = z.object({
   email: emailSchema,
   role: z.enum(['admin', 'editor', 'analyst'], { error: 'validation.required' }),
 });
-export type OrganizerInvitationInput = z.infer<typeof organizerInvitationSchema>;
+export type OrganizerInvitationInput = Clean<z.infer<typeof organizerInvitationSchema>>;
 
 export const verificationRequestSchema = z.object({
   legalName: requiredText(2, 200),
   registrationNumber: optionalText(64),
   message: optionalText(2000),
 });
-export type VerificationRequestInput = z.infer<typeof verificationRequestSchema>;
+export type VerificationRequestInput = Clean<z.infer<typeof verificationRequestSchema>>;
 
 export const venueSchema = z
   .object({
@@ -64,4 +64,4 @@ export const venueSchema = z
       ctx.addIssue({ code: 'custom', path: ['phone'], message: 'validation.invalid_phone' });
     }
   });
-export type VenueInput = z.infer<typeof venueSchema>;
+export type VenueInput = Clean<z.infer<typeof venueSchema>>;

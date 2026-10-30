@@ -512,8 +512,8 @@ create or replace function public.checkout_create_reservation(
   p_provider_hold_ref text,
   p_expires_at timestamptz,
   p_pricing jsonb,
-  p_promotion_id uuid,
-  p_idempotency_key text
+  p_idempotency_key text,
+  p_promotion_id uuid default null
 )
 returns public.reservations
 language plpgsql

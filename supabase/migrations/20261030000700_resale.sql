@@ -272,7 +272,7 @@ as $$
   select ((p_amount * p_bps) + 5000) / 10000
 $$;
 
-create or replace function public.resale_quote(p_ticket_id uuid, p_asking_price_minor bigint)
+create or replace function public.resale_quote(p_ticket_id uuid, p_asking_price_minor bigint default null)
 returns jsonb
 language plpgsql
 stable

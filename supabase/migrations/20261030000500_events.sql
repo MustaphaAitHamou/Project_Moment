@@ -159,6 +159,9 @@ set search_path = ''
 as $$
 declare
   v_trusted boolean := public.is_service_context() or public.is_staff();
+  -- Indicateur transactionnel positionné uniquement par les fonctions internes de comptage
+  -- (favoris, inscriptions) : il n'est pas modifiable depuis l'API.
+  v_internal_counters boolean := coalesce(current_setting('tamurt.internal_counters', true), '') = 'on';
   v_org_verified boolean;
   v_can_publish boolean;
 begin
@@ -219,9 +222,10 @@ begin
          or new.reviewed_by is distinct from old.reviewed_by
          or new.reviewed_at is distinct from old.reviewed_at
          or new.moderation_note is distinct from old.moderation_note
-         or new.favorites_count is distinct from old.favorites_count
-         or new.registrations_count is distinct from old.registrations_count
-         or new.views_count is distinct from old.views_count
+         or (not v_internal_counters and (
+               new.favorites_count is distinct from old.favorites_count
+               or new.registrations_count is distinct from old.registrations_count
+               or new.views_count is distinct from old.views_count))
          or new.created_by is distinct from old.created_by
          or new.deleted_at is distinct from old.deleted_at and new.deleted_at is null then
         raise exception 'forbidden_column_change' using errcode = '42501';
@@ -372,13 +376,20 @@ security definer
 set search_path = ''
 as $$
 begin
-  if tg_table_name = 'organizer_profiles' and new.name is distinct from old.name then
-    update public.events e set updated_at = now() where e.organizer_id = new.id;
-  elsif tg_table_name = 'venues' and (new.name is distinct from old.name or new.address_line1 is distinct from old.address_line1) then
-    update public.events e set updated_at = now() where e.venue_id = new.id;
-  elsif tg_table_name = 'artists' and new.name is distinct from old.name then
-    update public.events e set updated_at = now()
-    where e.id in (select ea.event_id from public.event_artists ea where ea.artist_id = new.id);
+  -- Conditions imbriquées : chaque expression ne référence que les colonnes de SA table.
+  if tg_table_name = 'organizer_profiles' then
+    if new.name is distinct from old.name then
+      update public.events e set updated_at = now() where e.organizer_id = new.id;
+    end if;
+  elsif tg_table_name = 'venues' then
+    if new.name is distinct from old.name or new.address_line1 is distinct from old.address_line1 then
+      update public.events e set updated_at = now() where e.venue_id = new.id;
+    end if;
+  elsif tg_table_name = 'artists' then
+    if new.name is distinct from old.name then
+      update public.events e set updated_at = now()
+      where e.id in (select ea.event_id from public.event_artists ea where ea.artist_id = new.id);
+    end if;
   end if;
   return null;
 end;
@@ -410,6 +421,7 @@ security definer
 set search_path = ''
 as $$
 begin
+  perform set_config('tamurt.internal_counters', 'on', true);
   if tg_op = 'INSERT' then
     update public.events set favorites_count = favorites_count + 1 where id = new.event_id;
     insert into public.event_daily_stats (event_id, day, favorites)
@@ -418,6 +430,7 @@ begin
   elsif tg_op = 'DELETE' then
     update public.events set favorites_count = greatest(favorites_count - 1, 0) where id = old.event_id;
   end if;
+  perform set_config('tamurt.internal_counters', 'off', true);
   return null;
 end;
 $$;

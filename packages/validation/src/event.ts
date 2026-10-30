@@ -12,6 +12,7 @@ import {
   timeSchema,
   timezoneSchema,
   uuidSchema,
+  type Clean,
 } from './common';
 
 export const accessibilitySchema = z
@@ -150,7 +151,7 @@ export interface EventRowInput {
   currency: string | null;
   capacity: number | null;
   registration_mode: 'none' | 'free_registration' | 'tickets';
-  accessibility: Record<string, unknown>;
+  accessibility: { [key: string]: string | boolean | undefined };
   entry_conditions: string | null;
   age_min: number | null;
   contact_email: string | null;
@@ -208,13 +209,13 @@ export const eventStatusActionSchema = z.discriminatedUnion('action', [
   z.object({ action: z.literal('withdraw') }),
   z.object({ action: z.literal('cancel'), reason: requiredText(5, 1000) }),
 ]);
-export type EventStatusAction = z.infer<typeof eventStatusActionSchema>;
+export type EventStatusAction = Clean<z.infer<typeof eventStatusActionSchema>>;
 
 export const announcementSchema = z.object({
   title: requiredText(3, 120),
   body: requiredText(3, 2000),
 });
-export type AnnouncementInput = z.infer<typeof announcementSchema>;
+export type AnnouncementInput = Clean<z.infer<typeof announcementSchema>>;
 
 export const eventReportSchema = z.object({
   eventId: uuidSchema,
@@ -224,7 +225,7 @@ export const eventReportSchema = z.object({
   ),
   details: optionalText(2000),
 });
-export type EventReportInput = z.infer<typeof eventReportSchema>;
+export type EventReportInput = Clean<z.infer<typeof eventReportSchema>>;
 
 export const registrationSchema = z.object({
   eventId: uuidSchema,

@@ -1213,6 +1213,8 @@
     "only_owner_can_manage_owners": "وحده المالك يستطيع إدارة المالكين.",
     "account_has_owned_organizers": "انقل منظماتك أو احذفها قبل حذف حسابك.",
     "geocoding_unavailable": "البحث عن العناوين غير متاح مؤقتًا.",
-    "internal_error": "حدث خطأ داخلي."
+    "internal_error": "حدث خطأ داخلي.",
+    "promo_code_invalid": "رمز ترويجي غير صالح أو منتهي الصلاحية.",
+    "promo_code_not_allowed": "هذا الرمز الترويجي غير مسموح به لهذا الطلب."
   }
 }
