@@ -30,7 +30,7 @@
     "db:lint": "supabase db lint --schema public,demo_provider --level warning --fail-on error",
     "demo:reset": "tsx scripts/seed/index.ts --reset",
     "doctor": "node scripts/doctor.mjs",
-    "setup": "node scripts/setup.mjs"
+    "setup:local": "node scripts/setup.mjs"
   },
   "devDependencies": {
     "@types/node": "22.20.5",

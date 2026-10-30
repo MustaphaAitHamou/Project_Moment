@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+@import '@tamurt/ui/tokens.css';
+
+/* Les couleurs basculent automatiquement (clair/sombre) via les variables --tm-* générées par @tamurt/ui. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme inline {
+  --color-bg: var(--tm-background);
+  --color-surface: var(--tm-surface);
+  --color-raised: var(--tm-surface-raised);
+  --color-sunken: var(--tm-surface-sunken);
+  --color-line: var(--tm-border);
+  --color-line-strong: var(--tm-border-strong);
+  --color-fg: var(--tm-text);
+  --color-muted: var(--tm-text-muted);
+  --color-subtle: var(--tm-text-subtle);
+  --color-on-primary: var(--tm-text-on-primary);
+  --color-primary: var(--tm-primary);
+  --color-primary-hover: var(--tm-primary-hover);
+  --color-primary-soft: var(--tm-primary-soft);
+  --color-accent: var(--tm-accent);
+  --color-accent-soft: var(--tm-accent-soft);
+  --color-secondary: var(--tm-secondary);
+  --color-secondary-soft: var(--tm-secondary-soft);
+  --color-success: var(--tm-success);
+  --color-success-soft: var(--tm-success-soft);
+  --color-warning: var(--tm-warning);
+  --color-warning-soft: var(--tm-warning-soft);
+  --color-danger: var(--tm-danger);
+  --color-danger-soft: var(--tm-danger-soft);
+  --color-info: var(--tm-info);
+  --color-info-soft: var(--tm-info-soft);
+  --color-demo: var(--tm-demo);
+  --color-demo-soft: var(--tm-demo-soft);
+  --color-focus: var(--tm-focus-ring);
+  --color-skeleton: var(--tm-skeleton);
+  --color-overlay: var(--tm-overlay);
+
+  --font-display: var(--tm-font-display);
+  --font-sans: var(--tm-font-body);
+  --font-arabic: var(--tm-font-arabic);
+
+  --radius-xs: var(--tm-radius-xs);
+  --radius-sm: var(--tm-radius-sm);
+  --radius-md: var(--tm-radius-md);
+  --radius-lg: var(--tm-radius-lg);
+  --radius-xl: var(--tm-radius-xl);
+  --radius-2xl: var(--tm-radius-2xl);
+
+  --shadow-sm: var(--tm-shadow-sm);
+  --shadow-md: var(--tm-shadow-md);
+  --shadow-lg: var(--tm-shadow-lg);
+  --shadow-glow: var(--tm-shadow-glow);
+}
+
+/* Polices auto-hébergées par next/font (variables posées sur <html>). */
+:root {
+  --tm-font-display: var(--font-display-src, 'Bricolage Grotesque'), ui-sans-serif, system-ui, sans-serif;
+  --tm-font-body: var(--font-body-src, 'Inter'), ui-sans-serif, system-ui, sans-serif;
+  --tm-font-arabic: var(--font-arabic-src, 'IBM Plex Sans Arabic'), 'Noto Sans Arabic', ui-sans-serif, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--tm-background);
+    color: var(--tm-text);
+    font-family: var(--tm-font-body);
+    min-height: 100dvh;
+  }
+  html:lang(ar) body,
+  html:lang(ar) .font-display {
+    font-family: var(--tm-font-arabic);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--tm-font-display);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  html:lang(ar) :is(h1, h2, h3) {
+    font-family: var(--tm-font-arabic);
+    letter-spacing: 0;
+  }
+  :focus-visible {
+    outline: 2px solid var(--tm-focus-ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--tm-primary-soft);
+    color: var(--tm-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 80rem;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 1.5rem;
+    }
+  }
+  .prose-tm {
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  .prose-tm p + p {
+    margin-top: 0.85em;
+  }
+}
+
+/* Carte MapLibre : respect du thème. */
+.maplibregl-popup-content {
+  background: var(--tm-surface-raised) !important;
+  color: var(--tm-text) !important;
+  border-radius: var(--tm-radius-md) !important;
+  box-shadow: var(--tm-shadow-md) !important;
+}

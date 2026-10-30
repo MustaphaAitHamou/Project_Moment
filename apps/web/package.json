@@ -1,0 +1,48 @@
+{
+  "name": "@tamurt/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Site web Tamurt Events (Next.js App Router) et API serveur commune au web et au mobile.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "6.0.2",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "catalog:",
+    "@tamurt/api-client": "workspace:*",
+    "@tamurt/core": "workspace:*",
+    "@tamurt/i18n": "workspace:*",
+    "@tamurt/server": "workspace:*",
+    "@tamurt/ticketing": "workspace:*",
+    "@tamurt/types": "workspace:*",
+    "@tamurt/ui": "workspace:*",
+    "@tamurt/validation": "workspace:*",
+    "clsx": "2.1.1",
+    "lucide-react": "1.64.0",
+    "maplibre-gl": "6.16.0",
+    "next": "16.4.3",
+    "next-intl": "4.14.9",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-hook-form": "7.91.0",
+    "server-only": "0.0.1",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.3",
+    "tailwindcss": "4.3.3",
+    "typescript": "catalog:"
+  }
+}
