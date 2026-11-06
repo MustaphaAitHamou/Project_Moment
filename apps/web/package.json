@@ -26,9 +26,9 @@
     "@tamurt/ui": "workspace:*",
     "@tamurt/validation": "workspace:*",
     "clsx": "2.1.1",
-    "lucide-react": "1.64.0",
+    "lucide-react": "1.67.0",
     "maplibre-gl": "6.16.0",
-    "next": "16.4.3",
+    "next": "16.4.5",
     "next-intl": "4.14.9",
     "react": "catalog:",
     "react-dom": "catalog:",
@@ -37,14 +37,14 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@playwright/test": "1.63.0",
-    "@tailwindcss/turbopack": "4.3.3",
+    "@playwright/test": "1.64.1",
+    "@tailwindcss/turbopack": "4.3.4",
     "@types/node": "22.20.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.4.3",
-    "tailwindcss": "4.3.3",
+    "eslint-config-next": "16.4.5",
+    "tailwindcss": "4.3.4",
     "typescript": "catalog:"
   }
 }
