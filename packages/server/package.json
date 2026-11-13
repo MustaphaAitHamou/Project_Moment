@@ -24,7 +24,7 @@
     "@tamurt/ticketing": "workspace:*",
     "@tamurt/types": "workspace:*",
     "@tamurt/validation": "workspace:*",
-    "nodemailer": "10.3.1",
+    "nodemailer": "10.5.0",
     "use-intl": "catalog:",
     "zod": "catalog:"
   },
