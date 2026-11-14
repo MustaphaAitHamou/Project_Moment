@@ -15,6 +15,7 @@
   --color-muted: var(--tm-text-muted);
   --color-subtle: var(--tm-text-subtle);
   --color-on-primary: var(--tm-text-on-primary);
+  --color-on-danger: var(--tm-text-on-danger);
   --color-primary: var(--tm-primary);
   --color-primary-hover: var(--tm-primary-hover);
   --color-primary-soft: var(--tm-primary-soft);
@@ -36,6 +37,7 @@
   --color-skeleton: var(--tm-skeleton);
   --color-overlay: var(--tm-overlay);
 
+  --font-moment: var(--tm-font-moment);
   --font-display: var(--tm-font-display);
   --font-sans: var(--tm-font-body);
   --font-arabic: var(--tm-font-arabic);
@@ -51,12 +53,18 @@
   --shadow-md: var(--tm-shadow-md);
   --shadow-lg: var(--tm-shadow-lg);
   --shadow-glow: var(--tm-shadow-glow);
+  --shadow-glow-cyan: var(--tm-shadow-glow-cyan);
 }
 
-/* Polices auto-hébergées par next/font (variables posées sur <html>). */
+/*
+ * Polices auto-hébergées par next/font (variables posées sur <html>).
+ * Tilt Neon pour l'interface, Kaushan Script pour les grands titres ; Noto Sans prend le relais
+ * pour les lettres kabyles absentes (ɛ, ɣ…), IBM Plex Sans Arabic pour l'arabe.
+ */
 :root {
-  --tm-font-display: var(--font-display-src, 'Bricolage Grotesque'), ui-sans-serif, system-ui, sans-serif;
-  --tm-font-body: var(--font-body-src, 'Inter'), ui-sans-serif, system-ui, sans-serif;
+  --tm-font-moment: var(--font-moment-src, 'Kaushan Script'), var(--font-display-src, 'Tilt Neon'), cursive;
+  --tm-font-display: var(--font-display-src, 'Tilt Neon'), var(--font-fallback-src, 'Noto Sans'), ui-sans-serif, system-ui, sans-serif;
+  --tm-font-body: var(--font-display-src, 'Tilt Neon'), var(--font-fallback-src, 'Noto Sans'), ui-sans-serif, system-ui, sans-serif;
   --tm-font-arabic: var(--font-arabic-src, 'IBM Plex Sans Arabic'), 'Noto Sans Arabic', ui-sans-serif, sans-serif;
 }
 
@@ -79,7 +87,6 @@
   h2,
   h3 {
     font-family: var(--tm-font-display);
-    letter-spacing: -0.015em;
     text-wrap: balance;
   }
   html:lang(ar) :is(h1, h2, h3) {
@@ -132,4 +139,25 @@
   color: var(--tm-text) !important;
   border-radius: var(--tm-radius-md) !important;
   box-shadow: var(--tm-shadow-md) !important;
+}
+
+/*
+ * Grand titre « enseigne lumineuse » : Kaushan Script, halo rose et ombre cyan décalée.
+ * Réservé aux moments forts (bandeau d'accueil), jamais au texte courant.
+ */
+@utility titre-neon {
+  font-family: var(--tm-font-moment);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-shadow:
+    0 0 14px rgb(255 79 163 / 0.5),
+    2px 2px 0 rgb(47 230 240 / 0.6);
+}
+
+/* Frise Events « égaliseur » : les barres d'un égaliseur, la musique qui monte. Décorative, 12 px. */
+@utility frise {
+  height: 12px;
+  background-color: var(--tm-primary);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 12%22 width=%2220%22 height=%2212%22 fill=%22%23000%22%3E%3Cpath d=%22M1.5 7h3v5h-3zM6.5 2h3v10h-3zM11.5 5h3v7h-3zM16.5 0h3v12h-3z%22/%3E%3C/svg%3E") left center / auto 100% repeat-x;
+  mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 12%22 width=%2220%22 height=%2212%22 fill=%22%23000%22%3E%3Cpath d=%22M1.5 7h3v5h-3zM6.5 2h3v10h-3zM11.5 5h3v7h-3zM16.5 0h3v12h-3z%22/%3E%3C/svg%3E") left center / auto 100% repeat-x;
 }

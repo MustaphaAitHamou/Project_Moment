@@ -54,7 +54,7 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
     secondary: { bg: colors.secondary, fg: '#FFFFFF', border: colors.secondary },
     outline: { bg: colors.surface, fg: colors.text, border: colors.borderStrong },
     ghost: { bg: 'transparent', fg: colors.text, border: 'transparent' },
-    danger: { bg: colors.danger, fg: '#FFFFFF', border: colors.danger },
+    danger: { bg: colors.danger, fg: colors.textOnDanger, border: colors.danger },
   };
   const tone = palette[variant];
   return (

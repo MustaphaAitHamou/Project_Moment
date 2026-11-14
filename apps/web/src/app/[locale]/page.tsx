@@ -60,11 +60,11 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[lo
   return (
     <>
       <RememberCountry country={country} />
-      <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-primary-soft via-bg to-bg">
+      <section className="relative overflow-hidden bg-gradient-to-b from-secondary-soft via-bg to-bg">
         <div aria-hidden className="pointer-events-none absolute -end-24 -top-24 h-80 w-80 rounded-full bg-accent/30 blur-3xl" />
         <div aria-hidden className="pointer-events-none absolute -start-16 top-32 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
         <div className="container-page relative space-y-6 py-12 sm:py-16">
-          <h1 className="max-w-3xl font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">{t('home.heroTitle')}</h1>
+          <h1 className="titre-neon max-w-3xl text-4xl leading-[1.15] sm:text-5xl lg:text-6xl">{t('home.heroTitle')}</h1>
           <p className="max-w-2xl text-lg text-muted">{t('home.heroSubtitle')}</p>
           <SearchBox size="lg" className="max-w-2xl" hidden={countryQuery} />
           <CountryChips active={country} />
@@ -77,6 +77,8 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[lo
             <Link href="/map" className={buttonClasses({ variant: 'ghost', size: 'sm' })}><MapIcon className="h-4 w-4" aria-hidden />{t('nav.map')}</Link>
           </div>
         </div>
+        {/* Frise Events « égaliseur » sous le bandeau d'accueil (une par écran). */}
+        <div className="frise" aria-hidden />
       </section>
 
       {section(t('home.thisWeekend'), weekend, { pathname: '/search', query: { ...countryQuery, date: 'weekend' } }, 3)}
@@ -118,9 +120,10 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[lo
       ) : null}
 
       <section className="container-page grid gap-5 py-8 md:grid-cols-2">
-        <div className="rounded-2xl bg-secondary p-8 text-white">
-          <h2 className="font-display text-2xl font-bold">{t('home.createCta')}</h2>
-          <p className="mt-2 text-white/80">{t('home.createCtaText')}</p>
+        {/* Bandeau de marque : du violet de nuit au magenta, texte blanc ≥ 5:1 (le rose vif reste aux grands titres). */}
+        <div className="rounded-2xl bg-[linear-gradient(57deg,#5B21D6_0%,#C026A8_100%)] p-8 text-white">
+          <h2 className="font-display text-2xl">{t('home.createCta')}</h2>
+          <p className="mt-2 text-white">{t('home.createCtaText')}</p>
           <Link href="/organizer/events/new" className={buttonClasses({ className: 'mt-5' })}>{t('nav.create')}</Link>
         </div>
         <div className="rounded-2xl border border-line bg-accent-soft p-8">

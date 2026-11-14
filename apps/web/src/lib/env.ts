@@ -31,3 +31,15 @@ export function isIndexable(): boolean {
   if (process.env.VERCEL_ENV) return process.env.VERCEL_ENV === 'production';
   return process.env.NODE_ENV === 'production' && process.env.TAMURT_ALLOW_INDEXING === 'true';
 }
+
+/** Adresse de Tamurt Services (la maison mère) : active le bouton yaz de l'en-tête. Vide : pas de bouton. */
+export function tamurtServicesUrl(): string | null {
+  const value = process.env.TAMURT_SERVICES_URL?.trim();
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}

@@ -20,6 +20,15 @@ pour la France (EUR), l'Algérie (DZD), les États-Unis (USD) et le Canada (CAD)
 | **Backend** (`supabase/`) | PostgreSQL + Auth + Storage + RLS (59 tables, 105 politiques), fonctions transactionnelles, pg_cron, audit immuable | 62 tests d'intégration |
 | **Paquets partagés** (`packages/`) | `core` (argent en entiers, tarification, fuseaux/DST, calendrier, ICS), `validation` (Zod), `i18n`, `ui` (design system, affiches génératives), `ticketing` (connecteurs à capacités déclarées, fournisseur fictif), `payments` (paiement simulé), `server` (services), `api-client`, `types` | ~110 tests unitaires |
 
+## Identité visuelle
+
+Tamurt Events suit la DA de la famille **Tamurt Services** : la nuit et les néons d'une ville en fête.
+- **Couleurs** : nuit violette (`#140A2E`), rose néon (`#FF4FA3`), cyan électrique (`#2FE6F0`). Ce sont les mêmes fonds dans les deux thèmes, comme une salle de concert ; le sélecteur de thème a été retiré de l'en-tête.
+- **Polices** : Kaushan Script pour les grands titres (l'enseigne lumineuse, classe `titre-neon`), Tilt Neon pour l'interface. Noto Sans prend le relais pour les lettres kabyles, IBM Plex Sans Arabic pour l'arabe.
+- **Formes** : boutons en pilule, en capitales espacées, avec un halo rose (principal) ou cyan (secondaire) ; cartes à 18 px ; frise « égaliseur » sous l'accueil.
+- **Fichiers** : jetons dans `packages/ui/src/tokens.ts` (web et mobile, puis `pnpm --filter @tamurt/ui build:css`) ; logos dans `apps/web/public/brand` ; icônes web et mobile issues du kit.
+- **Bouton yaz** : il apparaît en haut à droite quand `TAMURT_SERVICES_URL` est renseignée.
+
 ## Démarrage rapide (Windows, macOS, Linux)
 
 Prérequis : **Node.js 22**, **pnpm 10** (`corepack enable`), **Docker Desktop** (pour Supabase local).

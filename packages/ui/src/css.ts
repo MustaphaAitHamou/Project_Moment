@@ -17,6 +17,7 @@ function themeBlock(colors: SemanticColors): string {
  */
 export function buildTokensCss(): string {
   const constants = [
+    `  ${cssVar('fontMoment')}: '${typography.fontFamily.moment}', ui-sans-serif, system-ui, sans-serif;`,
     `  ${cssVar('fontDisplay')}: '${typography.fontFamily.display}', ui-sans-serif, system-ui, sans-serif;`,
     `  ${cssVar('fontBody')}: '${typography.fontFamily.body}', ui-sans-serif, system-ui, sans-serif;`,
     `  ${cssVar('fontArabic')}: '${typography.fontFamily.arabic}', 'Noto Sans Arabic', ui-sans-serif, sans-serif;`,
@@ -29,7 +30,8 @@ export function buildTokensCss(): string {
   return [
     '/* Fichier généré par `pnpm --filter @tamurt/ui build:css` — ne pas modifier à la main. */',
     ':root {',
-    '  color-scheme: light;',
+    // Tamurt Events est une app de nuit : mêmes fonds sombres dans les deux thèmes.
+    '  color-scheme: dark;',
     themeBlock(themes.light),
     constants,
     '}',

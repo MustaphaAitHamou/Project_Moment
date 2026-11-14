@@ -7,10 +7,10 @@ import { Link } from '@/i18n/navigation';
 import { getSupabase, type Viewer } from '@/lib/session';
 import { LocaleSwitcher } from './locale-switcher';
 import { Logo } from './logo';
-import { ThemeToggle, type ThemePreference } from './theme-toggle';
+import { TamurtYaz } from './tamurt-yaz';
 import { UserMenu } from './user-menu';
 
-export async function SiteHeader({ viewer, theme }: { viewer: Viewer | null; theme: ThemePreference }) {
+export async function SiteHeader({ viewer }: { viewer: Viewer | null }) {
   const t = await getTranslations();
   let unread = 0;
   if (viewer) {
@@ -45,7 +45,6 @@ export async function SiteHeader({ viewer, theme }: { viewer: Viewer | null; the
           <Suspense fallback={<span className="h-10 w-10" />}>
             <LocaleSwitcher />
           </Suspense>
-          <ThemeToggle initial={theme} />
           {viewer ? (
             <>
               <Link href="/account/notifications" className="relative grid h-10 w-10 place-items-center rounded-full text-muted hover:bg-sunken hover:text-fg" aria-label={`${t('nav.notifications')}${unread ? ` (${unread})` : ''}`}>
@@ -59,6 +58,7 @@ export async function SiteHeader({ viewer, theme }: { viewer: Viewer | null; the
               {t('nav.login')}
             </Link>
           )}
+          <TamurtYaz />
         </div>
       </div>
     </header>

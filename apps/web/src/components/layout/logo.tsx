@@ -1,20 +1,17 @@
-import { logoMarkSvg } from '@tamurt/ui';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-const MARK = logoMarkSvg({ size: 36 });
-
-/** Logo Tamurt (SVG généré par @tamurt/ui, contenu interne de confiance). */
+/**
+ * Logo Tamurt Events (DA Tamurt Services) : le mot TAMURT rouge et sa ligne ⵜⴰⵎⵓⵔⵜ, puis « Events » en néon rose.
+ * L'app est toujours de nuit : seule la version pour fond sombre est utilisée.
+ */
 export function Logo({ className, withText = true, label }: { className?: string; withText?: boolean; label: string }) {
+  if (!withText) {
+    return <Image src="/icon.svg" alt={label} width={36} height={36} unoptimized className={cn('h-9 w-9 shrink-0', className)} />;
+  }
   return (
-    <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <span aria-hidden className="h-9 w-9 shrink-0 [&>svg]:h-full [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: MARK }} />
-      {withText ? (
-        <span className="font-display text-lg font-extrabold leading-none tracking-tight">
-          Tamurt<span className="text-primary"> Events</span>
-        </span>
-      ) : (
-        <span className="sr-only">{label}</span>
-      )}
+    <span className={cn('inline-flex items-center', className)}>
+      <Image src="/brand/wordmark-sombre.svg" alt={label} width={114} height={30} unoptimized priority className="h-[30px] w-auto" />
     </span>
   );
 }

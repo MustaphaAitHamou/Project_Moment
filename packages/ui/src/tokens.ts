@@ -1,13 +1,37 @@
 /**
  * Design tokens Tamurt Events — source unique pour le web (variables CSS générées) et le mobile.
  *
- * Identité : « Braise » (énergie, scène), « Nuit » (soirées, élégance), « Safran » (chaleur, fête),
- * sur un fond « Sable » chaleureux en thème clair. Le motif signature est le losange, forme
- * géométrique universelle déclinée dans le logo et les affiches génératives.
+ * Identité (DA Tamurt Services) : la nuit et les néons d'une ville en fête. Nuit violette, rose néon,
+ * cyan électrique ; mêmes fonds dans les deux thèmes, comme une salle de concert.
+ * Kaushan Script pour les grands titres (l'enseigne lumineuse), Tilt Neon pour l'interface.
  * Pour changer d'identité, modifiez ce fichier puis lancez `pnpm --filter @tamurt/ui build:css`.
  */
 
 export const palette = {
+  /** Nuit et néons de la DA Tamurt Services. */
+  neon: {
+    pink: '#FF4FA3',
+    pinkText: '#FF7AC0',
+    pinkVif: '#F23D96',
+    pinkSoft: '#3A0F3D',
+    onPink: '#2A0420',
+    cyan: '#2FE6F0',
+    cyanSoft: '#0B2A3A',
+    violet: '#8B3DFF',
+    violetText: '#B48CFF',
+    violetFill: '#6D2EE8',
+    violetSoft: '#2A1A5C',
+    deep: '#5B21D6',
+    night: '#140A2E',
+    nightRaised: '#21123F',
+    nightHigh: '#2A1850',
+    nightSunken: '#0B0520',
+    line: '#3B2866',
+    lineStrong: '#9482D6',
+    ink: '#F7F1FF',
+    inkMuted: '#C1B4E4',
+    inkSubtle: '#A89BD0',
+  },
   ember: {
     50: '#FFF1EC',
     100: '#FFDFD3',
@@ -76,6 +100,7 @@ export interface SemanticColors {
   textMuted: string;
   textSubtle: string;
   textOnPrimary: string;
+  textOnDanger: string;
   primary: string;
   primaryHover: string;
   primarySoft: string;
@@ -98,79 +123,51 @@ export interface SemanticColors {
   skeleton: string;
 }
 
-export const themes: { light: SemanticColors; dark: SemanticColors } = {
-  light: {
-    background: palette.sand[100],
-    surface: palette.white,
-    surfaceRaised: palette.white,
-    surfaceSunken: palette.sand[200],
-    border: palette.sand[300],
-    borderStrong: palette.sand[400],
-    text: palette.night[900],
-    textMuted: '#5A556F',
-    textSubtle: '#7C7790',
-    textOnPrimary: palette.white,
-    primary: palette.ember[600],
-    primaryHover: palette.ember[700],
-    primarySoft: palette.ember[50],
-    accent: palette.saffron[400],
-    accentSoft: palette.saffron[50],
-    secondary: palette.night[600],
-    secondarySoft: palette.night[50],
-    success: palette.success.light,
-    successSoft: '#E6F6EE',
-    warning: palette.warning.light,
-    warningSoft: '#FFF4DA',
-    danger: palette.danger.light,
-    dangerSoft: '#FDE8E8',
-    info: palette.info.light,
-    infoSoft: '#E7F0FD',
-    focusRing: palette.ember[500],
-    overlay: 'rgba(20, 17, 43, 0.55)',
-    demo: '#7A4C0E',
-    demoSoft: palette.saffron[100],
-    skeleton: palette.sand[200],
-  },
-  dark: {
-    background: palette.night[950],
-    surface: '#16132A',
-    surfaceRaised: '#1E1A36',
-    surfaceSunken: '#100E20',
-    border: '#2C2748',
-    borderStrong: '#3D3760',
-    text: '#F4F1FF',
-    textMuted: '#B3ADCB',
-    textSubtle: '#8D86A8',
-    textOnPrimary: palette.white,
-    primary: palette.ember[500],
-    primaryHover: palette.ember[400],
-    primarySoft: '#3A1A12',
-    accent: palette.saffron[400],
-    accentSoft: '#3A2C0C',
-    secondary: palette.night[300],
-    secondarySoft: '#25204A',
-    success: palette.success.dark,
-    successSoft: '#0E2E20',
-    warning: palette.warning.dark,
-    warningSoft: '#33260A',
-    danger: palette.danger.dark,
-    dangerSoft: '#3A1316',
-    info: palette.info.dark,
-    infoSoft: '#132845',
-    focusRing: palette.saffron[400],
-    overlay: 'rgba(5, 4, 12, 0.7)',
-    demo: palette.saffron[300],
-    demoSoft: '#3A2C0C',
-    skeleton: '#231F3B',
-  },
+/** App de nuit : les deux thèmes partagent les mêmes fonds et les mêmes néons (contrastes ≥ 4,5:1). */
+const night: SemanticColors = {
+  background: palette.neon.night,
+  surface: palette.neon.nightRaised,
+  surfaceRaised: palette.neon.nightHigh,
+  surfaceSunken: palette.neon.nightSunken,
+  border: palette.neon.line,
+  borderStrong: palette.neon.lineStrong,
+  text: palette.neon.ink,
+  textMuted: palette.neon.inkMuted,
+  textSubtle: palette.neon.inkSubtle,
+  textOnPrimary: palette.neon.onPink,
+  textOnDanger: '#3D1512',
+  primary: palette.neon.pink,
+  primaryHover: '#E84894',
+  primarySoft: palette.neon.pinkSoft,
+  accent: palette.neon.cyan,
+  accentSoft: palette.neon.cyanSoft,
+  secondary: palette.neon.violetFill,
+  secondarySoft: palette.neon.violetSoft,
+  success: '#5FD3BB',
+  successSoft: '#0A2A24',
+  warning: '#F8BA3C',
+  warningSoft: '#382805',
+  danger: '#FF8F85',
+  dangerSoft: '#3D1512',
+  info: '#8FB6F5',
+  infoSoft: '#122444',
+  focusRing: palette.neon.ink,
+  overlay: 'rgba(11, 5, 32, 0.72)',
+  demo: '#F8BA3C',
+  demoSoft: '#382805',
+  skeleton: palette.neon.nightHigh,
 };
+
+export const themes: { light: SemanticColors; dark: SemanticColors } = { light: night, dark: night };
 
 export type ThemeName = keyof typeof themes;
 
 export const typography = {
   fontFamily: {
-    display: 'Bricolage Grotesque',
-    body: 'Inter',
+    /** Enseigne lumineuse : grands titres et moments forts uniquement. */
+    moment: 'Kaushan Script',
+    display: 'Tilt Neon',
+    body: 'Tilt Neon',
     arabic: 'IBM Plex Sans Arabic',
     mono: 'JetBrains Mono',
   },
@@ -208,13 +205,16 @@ export const spacing = {
   20: 80,
 } as const;
 
-export const radii = { xs: 6, sm: 8, md: 12, lg: 16, xl: 24, '2xl': 32, full: 9999 } as const;
+/** Coins de la DA Events : pilules pour boutons, champs et puces ; cartes à 18 px. */
+export const radii = { xs: 6, sm: 8, md: 12, lg: 18, xl: 24, '2xl': 32, full: 9999 } as const;
 
 export const shadows = {
-  sm: '0 1px 2px rgba(20, 17, 43, 0.06), 0 1px 1px rgba(20, 17, 43, 0.04)',
-  md: '0 4px 12px rgba(20, 17, 43, 0.08), 0 2px 4px rgba(20, 17, 43, 0.05)',
-  lg: '0 12px 32px rgba(20, 17, 43, 0.12), 0 4px 8px rgba(20, 17, 43, 0.06)',
-  glow: '0 8px 30px rgba(255, 91, 46, 0.35)',
+  sm: '0 1px 2px rgba(0, 0, 0, 0.3)',
+  md: '0 4px 12px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25)',
+  lg: '0 12px 32px rgba(0, 0, 0, 0.45), 0 4px 8px rgba(0, 0, 0, 0.3)',
+  /** Halo néon du bouton principal. */
+  glow: '0 0 18px rgba(255, 79, 163, 0.55)',
+  glowCyan: '0 0 14px rgba(47, 230, 240, 0.35)',
 } as const;
 
 /** Élévations React Native (iOS shadow* / Android elevation). */

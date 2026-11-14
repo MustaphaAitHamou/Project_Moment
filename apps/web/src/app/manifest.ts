@@ -7,12 +7,12 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Découvrez, créez et réservez des événements en France, en Algérie, aux États-Unis et au Canada.',
     start_url: '/fr',
     display: 'standalone',
-    background_color: '#F7F3EE',
-    theme_color: '#E8401A',
+    background_color: '#140A2E',
+    theme_color: '#140A2E',
     icons: [
       { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
-      { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      { src: '/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
   };
 }

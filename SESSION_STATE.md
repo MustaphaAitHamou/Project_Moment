@@ -16,6 +16,12 @@
 | CI GitHub Actions (qualité, base + E2E, mobile), EAS manuel, Dependabot, `vercel.json` | fichiers dans `.github/`, `apps/web/vercel.json` |
 | Documentation | README, ARCHITECTURE, SECURITY, API_INTEGRATIONS, DEPLOYMENT, ROADMAP, TASKS, docs/LEGAL_CHECKLIST |
 
+### Identité visuelle (DA Tamurt Services, 14/11/2026)
+- **Appliqué** : nuit et néons, Kaushan Script et Tilt Neon, boutons pilule à halo, frise égaliseur, logos et icônes (web et mobile), bouton yaz. Le thème est fixe : mêmes fonds en clair et en sombre, sans sélecteur dans l'en-tête.
+- **Vérifié** : `pnpm typecheck`, `pnpm lint`, `pnpm test` (tous les paquets) et build web. Rendu contrôlé avec un Supabase factice.
+- **Non relancés** : les E2E et les tests d'intégration, faute de pile Supabase locale dans cet environnement.
+- **Mobile** : couleurs via les jetons et icônes ; les polices Kaushan Script et Tilt Neon ne sont pas encore chargées dans l'app Expo.
+
 ## 2. Ce qui n'a PAS été fait (et pourquoi)
 
 - Aucun déploiement externe (Vercel, Supabase hébergé, EAS, stores) : nécessite les comptes de Tamurt Services LLC.

@@ -6,11 +6,13 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'dan
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: 'bg-primary text-on-primary hover:bg-primary-hover shadow-sm',
-  secondary: 'bg-secondary text-white hover:opacity-90 shadow-sm',
+  /** Rose néon et son halo. */
+  primary: 'bg-primary text-on-primary hover:bg-primary-hover shadow-glow',
+  /** Le trait cyan des néons. */
+  secondary: 'border-[1.5px] border-accent text-accent hover:bg-accent/10 shadow-glow-cyan',
   outline: 'border border-line-strong bg-surface text-fg hover:bg-sunken',
   ghost: 'text-fg hover:bg-sunken',
-  danger: 'bg-danger text-white hover:opacity-90',
+  danger: 'bg-danger text-on-danger hover:opacity-90',
   soft: 'bg-primary-soft text-primary hover:bg-primary-soft/70',
 };
 
@@ -23,7 +25,7 @@ const SIZES: Record<ButtonSize, string> = {
 
 export function buttonClasses(options: { variant?: ButtonVariant; size?: ButtonSize; className?: string } = {}): string {
   return cn(
-    'inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-colors duration-150 disabled:pointer-events-none disabled:opacity-55',
+    'inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-normal uppercase tracking-[0.08em] transition-[background-color,color,box-shadow] duration-150 disabled:pointer-events-none disabled:opacity-55',
     VARIANTS[options.variant ?? 'primary'],
     SIZES[options.size ?? 'md'],
     options.className,
