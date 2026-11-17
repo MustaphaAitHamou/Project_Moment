@@ -9,6 +9,7 @@ import { CountryChips } from '@/components/search/country-chips';
 import { RememberCountry } from '@/components/search/remember-country';
 import { SearchBox } from '@/components/search/search-box';
 import { buttonClasses } from '@/components/ui/button';
+import { BetaSpot, NightStageIllustration, OrganizerSpot } from '@/components/illustrations/night-scenes';
 import { EmptyState } from '@/components/ui/empty-state';
 import { SectionHeader } from '@/components/ui/page-header';
 import { Link } from '@/i18n/navigation';
@@ -63,7 +64,8 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[lo
       <section className="relative overflow-hidden bg-gradient-to-b from-secondary-soft via-bg to-bg">
         <div aria-hidden className="pointer-events-none absolute -end-24 -top-24 h-80 w-80 rounded-full bg-accent/30 blur-3xl" />
         <div aria-hidden className="pointer-events-none absolute -start-16 top-32 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-        <div className="container-page relative space-y-6 py-12 sm:py-16">
+        <div className="container-page relative grid items-center gap-8 py-12 sm:py-16 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
+          <div className="min-w-0 space-y-6">
           <h1 className="titre-neon max-w-3xl text-4xl leading-[1.15] sm:text-5xl lg:text-6xl">{t('home.heroTitle')}</h1>
           <p className="max-w-2xl text-lg text-muted">{t('home.heroSubtitle')}</p>
           <SearchBox size="lg" className="max-w-2xl" hidden={countryQuery} />
@@ -76,6 +78,9 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[lo
             <Link href="/agenda" className={buttonClasses({ variant: 'ghost', size: 'sm' })}><CalendarDays className="h-4 w-4" aria-hidden />{t('nav.agenda')}</Link>
             <Link href="/map" className={buttonClasses({ variant: 'ghost', size: 'sm' })}><MapIcon className="h-4 w-4" aria-hidden />{t('nav.map')}</Link>
           </div>
+          </div>
+          {/* Illustration originale : la scène, le public, un billet et la route des quatre pays. */}
+          <NightStageIllustration className="mx-auto hidden max-w-[540px] lg:block" />
         </div>
         {/* Frise Events « égaliseur » sous le bandeau d'accueil (une par écran). */}
         <div className="frise" aria-hidden />
@@ -121,15 +126,21 @@ export default async function HomePage({ params, searchParams }: PageProps<'/[lo
 
       <section className="container-page grid gap-5 py-8 md:grid-cols-2">
         {/* Bandeau de marque : du violet de nuit au magenta, texte blanc ≥ 5:1 (le rose vif reste aux grands titres). */}
-        <div className="rounded-2xl bg-[linear-gradient(57deg,#5B21D6_0%,#C026A8_100%)] p-8 text-white">
-          <h2 className="font-display text-2xl">{t('home.createCta')}</h2>
-          <p className="mt-2 text-white">{t('home.createCtaText')}</p>
-          <Link href="/organizer/events/new" className={buttonClasses({ className: 'mt-5' })}>{t('nav.create')}</Link>
+        <div className="relative grid items-center gap-4 overflow-hidden rounded-2xl bg-[linear-gradient(57deg,#5B21D6_0%,#C026A8_100%)] p-8 text-white sm:grid-cols-[1fr_auto]">
+          <div>
+            <h2 className="font-display text-2xl">{t('home.createCta')}</h2>
+            <p className="mt-2 text-white">{t('home.createCtaText')}</p>
+            <Link href="/organizer/events/new" className={buttonClasses({ className: 'mt-5' })}>{t('nav.create')}</Link>
+          </div>
+          <OrganizerSpot className="w-40 justify-self-center sm:w-44" />
         </div>
-        <div className="rounded-2xl border border-line bg-accent-soft p-8">
-          <h2 className="flex items-center gap-2 font-display text-2xl font-bold"><Sparkles className="h-6 w-6 text-primary" aria-hidden />{t('home.betaCta')}</h2>
-          <p className="mt-2 text-muted">{t('home.betaCtaText')}</p>
-          <Link href="/beta" className={buttonClasses({ variant: 'outline', className: 'mt-5' })}>{t('nav.beta')}</Link>
+        <div className="relative grid items-center gap-4 overflow-hidden rounded-2xl border border-line bg-accent-soft p-8 sm:grid-cols-[1fr_auto]">
+          <div>
+            <h2 className="flex items-center gap-2 font-display text-2xl font-bold"><Sparkles className="h-6 w-6 text-primary" aria-hidden />{t('home.betaCta')}</h2>
+            <p className="mt-2 text-muted">{t('home.betaCtaText')}</p>
+            <Link href="/beta" className={buttonClasses({ variant: 'outline', className: 'mt-5' })}>{t('nav.beta')}</Link>
+          </div>
+          <BetaSpot className="w-36 justify-self-center sm:w-40" />
         </div>
       </section>
     </>

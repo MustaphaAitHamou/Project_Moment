@@ -17,7 +17,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
       <summary className="grid h-10 cursor-pointer list-none place-items-center rounded-full px-2.5 text-sm font-semibold text-muted transition-colors hover:bg-sunken hover:text-fg [&::-webkit-details-marker]:hidden" aria-label={t('language')}>
         <span className="flex items-center gap-1.5">
           <Languages className="h-5 w-5" aria-hidden />
-          <span className="uppercase">{locale}</span>
+          <span className="hidden uppercase sm:inline">{locale}</span>
         </span>
       </summary>
       <ul className="absolute end-0 z-50 mt-2 w-44 overflow-hidden rounded-lg border border-line bg-raised py-1 shadow-lg">

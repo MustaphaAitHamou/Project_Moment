@@ -136,7 +136,7 @@ export async function SearchView({ filters, basePath, locale, locks = {}, includ
         {result.items.length ? (
           <EventGrid events={result.items} priorityCount={3} />
         ) : (
-          <EmptyState icon={SearchX} title={t('search.noResults')} text={t('search.noResultsHint')} action={<Link href={basePath} className={buttonClasses({ variant: 'outline' })}>{t('search.clearFilters')}</Link>} />
+          <EmptyState icon={SearchX} illustrated title={t('search.noResults')} text={t('search.noResultsHint')} action={<Link href={basePath} className={buttonClasses({ variant: 'outline' })}>{t('search.clearFilters')}</Link>} />
         )}
         {totalPages > 1 ? (
           <nav aria-label={t('common.page', { page: filters.page })} className="flex items-center justify-center gap-2 pt-4">

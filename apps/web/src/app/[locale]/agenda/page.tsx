@@ -174,7 +174,7 @@ export default async function AgendaPage({ params, searchParams }: PageProps<'/[
         (() => {
           const keys = view === 'day' ? [anchor] : [...byDay.keys()].filter((key) => key >= firstKey && key <= lastKey).sort();
           const days = keys.filter((key) => (byDay.get(key) ?? []).length > 0);
-          if (!days.length) return <EmptyState icon={CalendarDays} title={view === 'day' ? t('agenda.noEventsDay') : t('agenda.noEventsPeriod')} />;
+          if (!days.length) return <EmptyState icon={CalendarDays} illustrated title={view === 'day' ? t('agenda.noEventsDay') : t('agenda.noEventsPeriod')} />;
           return (
             <ol className="space-y-6">
               {days.map((key) => (

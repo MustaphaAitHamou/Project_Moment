@@ -3,7 +3,7 @@ import { isCountryCode, parseSearchParams } from '@tamurt/core';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { COUNTRY_FLAGS } from '@/components/search/country-chips';
+import { CountryFlag } from '@/components/ui/country-flag';
 import { RememberCountry } from '@/components/search/remember-country';
 import { SearchView } from '@/components/search/search-view';
 import { PageHeader } from '@/components/ui/page-header';
@@ -33,7 +33,7 @@ export default async function CountryPage({ params, searchParams }: PageProps<'/
   return (
     <div className="container-page py-8">
       <RememberCountry country={code} />
-      <PageHeader eyebrow={t('nav.countries')} title={<><span aria-hidden>{COUNTRY_FLAGS[code]} </span>{t(`countries.${code}`)}</>} />
+      <PageHeader eyebrow={t('nav.countries')} title={<span className="inline-flex items-center gap-3"><CountryFlag code={code} className="h-6 w-9" />{t(`countries.${code}`)}</span>} />
       <nav aria-label={t('nav.cities')} className="mb-8 flex flex-wrap gap-2">
         {cities.map((city) => (
           <Link key={city.id} href={`/countries/${country}/${city.slug}`} className="rounded-full border border-line bg-surface px-4 py-1.5 text-sm font-medium hover:bg-sunken">

@@ -38,7 +38,7 @@ export async function SiteHeader({ viewer }: { viewer: Viewer | null }) {
           <Link href="/search" className="grid h-10 w-10 place-items-center rounded-full text-muted hover:bg-sunken hover:text-fg" aria-label={t('nav.search')}>
             <Search className="h-5 w-5" aria-hidden />
           </Link>
-          <Link href="/organizer/events/new" className={buttonClasses({ size: 'sm', className: 'hidden md:inline-flex' })}>
+          <Link href="/organizer/events/new" className={buttonClasses({ size: 'sm', className: 'max-md:hidden' })}>
             <Plus className="h-4 w-4" aria-hidden />
             {t('nav.create')}
           </Link>
@@ -54,7 +54,8 @@ export async function SiteHeader({ viewer }: { viewer: Viewer | null }) {
               <UserMenu displayName={viewer.displayName} email={viewer.email} isStaff={viewer.isStaff} isBetaTester={viewer.roles.includes('beta_tester') || viewer.isStaff} />
             </>
           ) : (
-            <Link href="/auth/login" className={buttonClasses({ variant: 'outline', size: 'sm' })}>
+            // Sur téléphone, la connexion passe par l'onglet « Profil » de la barre du bas.
+            <Link href="/auth/login" className={buttonClasses({ variant: 'outline', size: 'sm', className: 'max-sm:hidden' })}>
               {t('nav.login')}
             </Link>
           )}

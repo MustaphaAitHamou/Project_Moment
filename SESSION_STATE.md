@@ -21,6 +21,11 @@
 - **Vérifié** : `pnpm typecheck`, `pnpm lint`, `pnpm test` (tous les paquets) et build web. Rendu contrôlé avec un Supabase factice.
 - **Non relancés** : les E2E et les tests d'intégration, faute de pile Supabase locale dans cet environnement.
 - **Mobile** : couleurs via les jetons et icônes ; les polices Kaushan Script et Tilt Neon ne sont pas encore chargées dans l'app Expo.
+- **Illustrations (17/11/2026)** : scène de concert animée dans le bandeau d'accueil (soleil rayé, projecteurs, égaliseur, public, billet, route des quatre pays), illustrations des encarts « organisateur » et « Tamurt Beta », scène vide pour les recherches et l'agenda sans résultat. Animations lentes, arrêtées si l'utilisateur limite les mouvements.
+- **Drapeaux** : les emojis (illisibles sous Windows, affichés « FR », « DZ »…) sont remplacés par des drapeaux SVG (puces de pays, page pays) et un globe pour « Tous les pays ».
+- **En-tête mobile** : « Créer un événement » et « Connexion » débordaient sur téléphone (`cn()` ne fusionne pas les classes Tailwind, `hidden` perdait contre `inline-flex`) ; masqués avec `max-md:hidden` / `max-sm:hidden`, la barre du bas couvre ces deux accès.
+- **Vérifié le 17/11/2026** avec la pile Supabase locale et les données de démo : `pnpm typecheck`, `pnpm lint`, `pnpm test` (112 tests), 15/15 E2E, build web ; rendu contrôlé sur ordinateur (1440 px) et mobile (390 px, sans débordement).
+- **À signaler** : `next dev` indique que Next.js 16.4.3 est concerné par une vulnérabilité connue ; mise à jour à décider.
 
 ## 2. Ce qui n'a PAS été fait (et pourquoi)
 

@@ -1,9 +1,8 @@
 import { COUNTRY_CODES, type CountryCode } from '@tamurt/core';
 import { useTranslations } from 'next-intl';
+import { CountryFlag, GlobeMark } from '@/components/ui/country-flag';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-
-const FLAGS: Record<CountryCode, string> = { FR: '🇫🇷', DZ: '🇩🇿', US: '🇺🇸', CA: '🇨🇦' };
 
 export function CountryChips({ active, pathname = '/', extraQuery = {} }: { active: CountryCode | null; pathname?: string; extraQuery?: Record<string, string> }) {
   const t = useTranslations();
@@ -12,15 +11,13 @@ export function CountryChips({ active, pathname = '/', extraQuery = {} }: { acti
   return (
     <nav aria-label={t('home.chooseCountry')} className="flex flex-wrap gap-2">
       <Link href={{ pathname, query: { ...extraQuery, country: 'all' } }} className={chip(active === null)} aria-current={active === null ? 'true' : undefined}>
-        🌍 {t('common.allCountries')}
+        <GlobeMark className={active === null ? 'text-bg' : 'text-accent'} /> {t('common.allCountries')}
       </Link>
       {COUNTRY_CODES.map((code) => (
         <Link key={code} href={{ pathname, query: { ...extraQuery, country: code } }} className={chip(active === code)} aria-current={active === code ? 'true' : undefined}>
-          <span aria-hidden>{FLAGS[code]}</span> {t(`countries.${code}`)}
+          <CountryFlag code={code} /> {t(`countries.${code}`)}
         </Link>
       ))}
     </nav>
   );
 }
-
-export { FLAGS as COUNTRY_FLAGS };
